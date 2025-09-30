@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartHome | Cart</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/cart.js" type="module"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+  </head>
+  <body>
+    <header class="main-header">
+   <div class="header-container">
+  <div class="logo-section">
+    <img src="/images/logos/smarthome.png" alt="SmartHome Logo" class="logo" onerror="this.style.display='none'">
+    <a href="/index.html" class="logo-text">Smart <span class="highlight">HOME</span></a>
+  </div>
+  
+  <div class="search-section">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search for a product...">
+      <button class="search-btn">
+        <span class="search-icon">🔍</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="cart-section">
+    <img src="/images/icon/cart.png" alt="Shopping Cart" class="cart-icon" onerror="this.style.display='none'">
+    <span class="cart-count">0</span>
+  </div>
+</div>
+    </header>
+
+    <main class="divider">
+      <section class="products">
+        <h2>My Cart</h2>
+        <ul class="product-list"></ul>
+      </section>
+
+      <div class="cart-actions">
+        <a href="/checkout/index.html" class="btn-primary">Payment</a>
+        <a href="/index.html" class="btn-secondary">Continue Shopping</a>
+      </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+  </body>
+</html>

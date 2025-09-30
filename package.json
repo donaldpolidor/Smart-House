@@ -1,0 +1,17 @@
+{
+  "name": "outside",
+  "version": "2.0.0",
+  "description": "Boilerplate for WDD 330 SleepOutside project",
+  "type": "module",
+  "main": "src/js/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "Shane Thompson",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^7.1.4"
+  }
+}

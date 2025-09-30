@@ -1,0 +1,215 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Multifunction Cooker Robot",
+      "image": "/images/kitchen/cooker-robot.jpg",
+      "images": [
+        "/images/kitchen/cooker-robot.jpg",
+        "/images/kitchen/cooker-robot-2.jpg",
+        "/images/kitchen/cooker-robot-3.jpg"
+      ],
+      "price": 399.99,
+      "category": "kitchen",
+      "description": "Smart cooking robot that prepares your meals automatically with 12 cooking programs and touch control interface.",
+      "features": ["12 automatic programs", "Touch control", "Guided cooking", "5L stainless steel bowl", "WiFi connectivity", "Recipe library"],
+      "inStock": true,
+      "rating": 4.8
+    },
+    {
+      "id": "2",
+      "name": "Automatic Coffee Machine",
+      "image": "/images/kitchen/coffee-machine.jpg",
+      "images": [
+        "/images/kitchen/coffee-machine.jpg",
+        "/images/kitchen/coffee-machine-2.jpg",
+        "/images/kitchen/coffee-machine-3.jpg"
+      ],
+      "price": 289.99,
+      "category": "kitchen",
+      "description": "Professional coffee machine with integrated ceramic grinder for the perfect brew every time.",
+      "features": ["Ceramic grinder", "Auto cleaning", "1.8L tank", "LCD display", "Milk frother", "Programmable settings"],
+      "inStock": true,
+      "rating": 4.6
+    },
+    {
+      "id": "3",
+      "name": "Professional Blender",
+      "image": "/images/kitchen/blender.jpg",
+      "images": [
+        "/images/kitchen/blender.jpg",
+        "/images/kitchen/blender-2.jpg",
+        "/images/kitchen/blender-3.jpg"
+      ],
+      "price": 149.99,
+      "category": "kitchen",
+      "description": "High-performance blender with 1500W power for smoothies, soups, and frozen desserts.",
+      "features": ["1500W power", "8 speeds", "Stainless steel blades", "2L glass jar", "Pulse function", "Easy clean"],
+      "inStock": true,
+      "rating": 4.5
+    },
+    {
+      "id": "4",
+      "name": "Air Fryer XXL",
+      "image": "/images/kitchen/air-fryer.jpg",
+      "images": [
+        "/images/kitchen/air-fryer.jpg",
+        "/images/kitchen/air-fryer-2.jpg",
+        "/images/kitchen/air-fryer-3.jpg"
+      ],
+      "price": 129.99,
+      "category": "kitchen",
+      "description": "Large 6L capacity air fryer for healthy cooking with digital controls and 8 preset programs.",
+      "features": ["6L capacity", "Digital timer", "8 preset programs", "Auto shut-off", "Non-stick basket", "Rapid air technology"],
+      "inStock": true,
+      "rating": 4.7
+    },
+    {
+      "id": "5",
+      "name": "Induction Cooktop",
+      "image": "/images/kitchen/induction-cooktop.jpg",
+      "images": [
+        "/images/kitchen/induction-cooktop.jpg",
+        "/images/kitchen/induction-cooktop-2.jpg",
+        "/images/kitchen/induction-cooktop-3.jpg"
+      ],
+      "price": 199.99,
+      "category": "kitchen",
+      "description": "Portable induction cooktop with precise temperature control and safety features.",
+      "features": ["9 power levels", "Child lock", "Timer", "Easy clean surface", "Safety shut-off", "Portable design"],
+      "inStock": true,
+      "rating": 4.4
+    },
+    {
+      "id": "6",
+      "name": "Stand Mixer",
+      "image": "/images/kitchen/stand-mixer.jpg",
+      "images": [
+        "/images/kitchen/stand-mixer.jpg",
+        "/images/kitchen/stand-mixer-2.jpg",
+        "/images/kitchen/stand-mixer-3.jpg"
+      ],
+      "price": 249.99,
+      "category": "kitchen",
+      "description": "Professional stand mixer with 1000W motor for all your baking and cooking needs.",
+      "features": ["1000W motor", "10 speeds", "Includes 3 attachments", "4.5L bowl", "Tilt-head design", "Planetary mixing action"],
+      "inStock": true,
+      "rating": 4.9
+    },
+    {
+      "id": "7",
+      "name": "Food Processor",
+      "image": "/images/kitchen/food-processor.jpg",
+      "images": [
+        "/images/kitchen/food-processor.jpg",
+        "/images/kitchen/food-processor-2.jpg",
+        "/images/kitchen/food-processor-3.jpg"
+      ],
+      "price": 179.99,
+      "category": "kitchen",
+      "description": "Multi-functional food processor with 8 functions for various kitchen tasks.",
+      "features": ["1000W power", "8 functions", "3L capacity", "Safety lock", "Multiple blades", "Pulse control"],
+      "inStock": true,
+      "rating": 4.3
+    },
+    {
+      "id": "8",
+      "name": "Electric Kettle",
+      "image": "/images/kitchen/electric-kettle.jpg",
+      "images": [
+        "/images/kitchen/electric-kettle.jpg",
+        "/images/kitchen/electric-kettle-2.jpg",
+        "/images/kitchen/electric-kettle-3.jpg"
+      ],
+      "price": 49.99,
+      "category": "kitchen",
+      "description": "Fast-boiling electric kettle with precise temperature control and keep-warm function.",
+      "features": ["1.7L capacity", "6 temperature settings", "Keep warm function", "Boil-dry protection", "Rapid boil", "Cordless serving"],
+      "inStock": true,
+      "rating": 4.2
+    },
+    {
+      "id": "9",
+      "name": "Toaster Oven",
+      "image": "/images/kitchen/toaster-oven.jpg",
+      "images": [
+        "/images/kitchen/toaster-oven.jpg",
+        "/images/kitchen/toaster-oven-2.jpg",
+        "/images/kitchen/toaster-oven-3.jpg"
+      ],
+      "price": 89.99,
+      "category": "kitchen",
+      "description": "Versatile toaster oven with convection baking and 6 cooking functions.",
+      "features": ["6 functions", "30L capacity", "Digital controls", "Auto shut-off", "Convection baking", "Interior light"],
+      "inStock": true,
+      "rating": 4.5
+    },
+    {
+      "id": "10",
+      "name": "Rice Cooker",
+      "image": "/images/kitchen/rice-cooker.jpg",
+      "images": [
+        "/images/kitchen/rice-cooker.jpg",
+        "/images/kitchen/rice-cooker-2.jpg",
+        "/images/kitchen/rice-cooker-3.jpg"
+      ],
+      "price": 69.99,
+      "category": "kitchen",
+      "description": "Smart rice cooker with multiple cooking functions and delay timer.",
+      "features": ["2L capacity", "8 cooking programs", "Delay timer", "Non-stick pot", "Keep warm function", "Steam function"],
+      "inStock": true,
+      "rating": 4.6
+    },
+    {
+  "id": "11",
+  "name": "Digital Kitchen Scale",
+  "image": "/images/kitchen/kitchen-scale.jpg",
+  "images": [
+    "/images/kitchen/kitchen-scale.jpg",
+    "/images/kitchen/kitchen-scale-2.jpg",
+    "/images/kitchen/kitchen-scale-3.jpg"
+  ],
+  "price": 29.99,
+  "category": "kitchen",
+  "description": "Precision digital kitchen scale with high accuracy for perfect measurements in cooking and baking.",
+  "features": ["5kg capacity", "1g precision", "LCD display", "Tare function", "Auto shut-off", "Units conversion"],
+  "inStock": true,
+  "rating": 4.7
+    },
+    {
+  "id": "12",
+  "name": "Professional Electric Griddle",
+  "image": "/images/kitchen/electric-griddle.jpg",
+  "images": [
+    "/images/kitchen/electric-griddle.jpg",
+    "/images/kitchen/electric-griddle-2.jpg",
+    "/images/kitchen/electric-griddle-3.jpg"
+  ],
+  "price": 129.99,
+  "category": "kitchen",
+  "description": "Commercial-grade electric griddle with precise temperature control and extra-large cooking surface for family meals.",
+  "features": ["Extra-large surface", "Precise temp control", "Commercial non-stick", "Even heat distribution", "Indicator lights", "Splash guard"],
+  "inStock": true,
+  "rating": 4.6
+},
+    {
+      "id": "13",
+      "name": "Immersion Blender",
+      "image": "/images/kitchen/immersion-blender.jpg",
+      "images": [
+        "/images/kitchen/immersion-blender.jpg",
+        "/images/kitchen/immersion-blender-2.jpg",
+        "/images/kitchen/immersion-blender-3.jpg"
+      ],
+      "price": 59.99,
+      "category": "kitchen",
+      "description": "Handheld immersion blender with 500W power for quick blending tasks.",
+      "features": ["500W power", "Variable speeds", "Includes accessories", "Easy to clean", "Stainless steel shaft", "Lightweight design"],
+      "inStock": true,
+      "rating": 4.3
+    }
+  ],
+  "categories": [
+    {"id": "kitchen", "name": "Kitchen", "icon": "👨‍🍳"}
+  ]
+}
