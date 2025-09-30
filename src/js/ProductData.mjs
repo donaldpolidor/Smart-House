@@ -11,26 +11,29 @@ export default class ProductData {
 
   async loadCategoryData(category) {
     try {
-      // Chemins absolus pour Netlify - IMPORTANT
+      // Chemins absolus pour Netlify
       const paths = [
         `/json/${category}.json`,
-        `./json/${category}.json`,
-        `/public/json/${category}.json`,
-        `../json/${category}.json`
+        `./json/${category}.json`
       ];
       
       let response;
       for (const path of paths) {
         try {
+          console.log(`Trying to load: ${path}`);
           response = await fetch(path);
-          if (response.ok) break;
+          if (response.ok) {
+            console.log(`✓ Successfully loaded: ${path}`);
+            break;
+          }
         } catch (e) {
+          console.log(`✗ Failed to load: ${path}`);
           continue;
         }
       }
       
       if (!response || !response.ok) {
-        console.warn(`Fichier ${category}.json non trouvé`);
+        console.warn(`File ${category}.json not found`);
         this.allProducts[category] = [];
         return [];
       }
@@ -47,17 +50,14 @@ export default class ProductData {
   }
 
   async getData(category = 'kitchen') {
-    // Si on a déjà les données, les retourner
     if (this.allProducts[category] && this.allProducts[category].length > 0) {
       return this.allProducts[category];
     }
     
-    // Sinon charger les données
     const products = await this.loadCategoryData(category);
     
-    // Si la catégorie est vide, charger kitchen comme fallback
     if (products.length === 0 && category !== 'kitchen') {
-      console.log(`Catégorie ${category} vide, utilisation de kitchen`);
+      console.log(`Category ${category} empty, using kitchen as fallback`);
       return await this.loadCategoryData('kitchen');
     }
     
@@ -65,7 +65,6 @@ export default class ProductData {
   }
 
   async getProductById(id) {
-    // Chercher dans toutes les catégories
     for (const category of this.categories) {
       if (!this.allProducts[category.id]) {
         await this.loadCategoryData(category.id);
@@ -77,7 +76,7 @@ export default class ProductData {
       }
     }
     
-    console.warn(`Produit avec ID ${id} non trouvé`);
+    console.warn(`Product with ID ${id} not found`);
     return null;
   }
 
@@ -85,7 +84,6 @@ export default class ProductData {
     return this.categories;
   }
 
-  // Méthode pour vider le cache
   clearCache() {
     this.allProducts = {};
   }

@@ -12,6 +12,14 @@ export default class ImageModal {
   }
 
   createModal() {
+    // Vérifier si la modal existe déjà
+    if (document.getElementById('imageModal')) {
+      this.modal = document.getElementById('imageModal');
+      this.modalImg = document.getElementById('modalImage');
+      this.captionText = document.getElementById('modalCaption');
+      return;
+    }
+
     const modalHTML = `
       <div id="imageModal" class="image-modal">
         <span class="close-modal">&times;</span>
@@ -30,60 +38,72 @@ export default class ImageModal {
   }
 
   setupEventListeners() {
-    // Fermer la modal
-    document.querySelector('.close-modal').addEventListener('click', () => {
-      this.closeModal();
-    });
-
-    // Fermer en cliquant à l'extérieur
-    this.modal.addEventListener('click', (e) => {
-      if (e.target === this.modal) {
+    const closeBtn = document.querySelector('.close-modal');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
         this.closeModal();
-      }
-    });
+      });
+    }
 
-    // Fermer avec la touche Échap
+    if (this.modal) {
+      this.modal.addEventListener('click', (e) => {
+        if (e.target === this.modal) {
+          this.closeModal();
+        }
+      });
+    }
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal.style.display === 'block') {
+      if (e.key === 'Escape' && this.modal && this.modal.style.display === 'block') {
         this.closeModal();
       }
     });
   }
 
   openModal(imgElement) {
+    if (!this.modal || !this.modalImg) {
+      this.init();
+    }
+    
     this.modal.style.display = 'block';
     this.modalImg.src = imgElement.src;
     this.captionText.textContent = imgElement.alt || 'Product Image';
     
-    // Empêcher le scroll du body
     document.body.style.overflow = 'hidden';
   }
 
   closeModal() {
-    this.modal.style.display = 'none';
+    if (this.modal) {
+      this.modal.style.display = 'none';
+    }
     document.body.style.overflow = 'auto';
   }
 
-  // Méthode pour attacher les événements aux images produits
   attachToProductImages() {
     const productImages = document.querySelectorAll('.product-image, .product-detail-image');
     
     productImages.forEach(img => {
       img.style.cursor = 'zoom-in';
-      img.addEventListener('click', () => {
-        this.openModal(img);
-      });
       
-      // Ajouter aussi la possibilité de zoom avec la touche Entrée
-      img.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          this.openModal(img);
-        }
-      });
+      // Remove existing listeners to avoid duplicates
+      img.replaceWith(img.cloneNode(true));
+      const newImg = document.querySelector(`[src="${img.src}"]`);
       
-      img.setAttribute('tabindex', '0');
-      img.setAttribute('role', 'button');
-      img.setAttribute('aria-label', `Zoom sur ${img.alt || 'image du produit'}`);
+      if (newImg) {
+        newImg.addEventListener('click', () => {
+          this.openModal(newImg);
+        });
+        
+        newImg.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            this.openModal(newImg);
+          }
+        });
+        
+        newImg.setAttribute('tabindex', '0');
+        newImg.setAttribute('role', 'button');
+        newImg.setAttribute('aria-label', `Zoom on ${newImg.alt || 'product image'}`);
+      }
     });
   }
 }

@@ -1,17 +1,15 @@
 {
-  "name": "outside",
-  "version": "2.0.0",
-  "description": "Boilerplate for WDD 330 SleepOutside project",
+  "name": "smart-home-app",
+  "version": "1.0.0",
   "type": "module",
-  "main": "src/js/main.js",
   "scripts": {
+    "build": "node build.js",
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build"
   },
-  "author": "Shane Thompson",
-  "license": "ISC",
   "devDependencies": {
+    "fs-extra": "^11.3.2",
     "vite": "^7.1.4"
   }
 }
