@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartHome | Intelligent Household Items</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/main.js" type="module"></script>
+    <script src="/js/sidebar.js" type="module"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+  </head>
+  <body>
+    <header class="main-header">
+    <div class="header-container">
+  <div class="logo-section">
+    <img src="/images/logos/smarthome.png" alt="SmartHome Logo" class="logo" onerror="this.style.display='none'">
+    <a href="/index.html" class="logo-text">Smart <span class="highlight">HOME</span></a>
+  </div>
+  
+  <div class="search-section">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search for a product...">
+      <button class="search-btn">
+        <span class="search-icon">🔍</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="cart-section">
+    <img src="/images/icon/cart.png" alt="Shopping Cart" class="cart-icon" onerror="this.style.display='none'">
+    <span class="cart-count">0</span>
+  </div>
+</div>
+    </header>
+
+    <div class="main-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3>Advertisements</h3>
+          <div class="ads-container">
+            <div class="ads-slider">
+              <img src="/images/pub_1.jpg" alt="Advertisement 1" class="ad-image active">
+              <img src="/images/pub_2.jpg" alt="Advertisement 2" class="ad-image">
+              <img src="/images/pub_3.jpg" alt="Advertisement 3" class="ad-image">
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Weather</h3>
+          <div class="weather-widget">
+            <div class="weather-loading">Loading weather...</div>
+            <div class="weather-content" style="display: none;">
+              <div class="weather-icon">🌤️</div>
+              <div class="weather-temp">--°C</div>
+              <div class="weather-desc">--</div>
+              <div class="weather-location">--</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Purchase notes</h3>
+          <div class="sticky-notes">
+            <textarea class="note-input" placeholder="Write your shopping list here..."></textarea>
+            <button class="save-note-btn">Save</button>
+            <div class="saved-notes"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Contenu principal -->
+      <main class="main-content">
+        <section class="banner-section">
+          <img src="/images/banner.jpg" alt="Household Products Banner" class="banner-image">
+        </section>
+
+        <section class="catalog-section">
+          <h1 class="catalog-title">CATALOG</h1>
+          <nav class="catalog-nav">
+            <ul class="nav-tabs">
+              <li class="nav-tab active" data-category="kitchen">Kitchen</li>
+              <li class="nav-tab" data-category="bathroom">Bathroom</li>
+              <li class="nav-tab" data-category="cleaning">Cleaning</li>
+              <li class="nav-tab" data-category="decoration">Decoration</li>
+            </ul>
+          </nav>
+
+          <div class="products-container">
+            <div class="products-grid" id="products-grid">
+              <div class="loading">Loading products...</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer id="main-footer">
+      <div class="footer-content">
+        <p>&copy; 2025 SmartHome. All rights reserved.</p>
+        <p>🏢WDD 330 | BYU-Idaho | Donald Polidor🌎</p>
+      </div>
+    </footer>
+  </body>
+</html>

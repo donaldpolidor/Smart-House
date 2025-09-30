@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SleepOutside | Checkout</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/checkout.js" type="module"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+  </head>
+  <body>
+    <header class="main-header">
+   <div class="header-container">
+  <div class="logo-section">
+    <img src="/images/logos/smarthome.png" alt="SmartHome Logo" class="logo" onerror="this.style.display='none'">
+    <a href="/index.html" class="logo-text">Smart <span class="highlight">HOME</span></a>
+  </div>
+  
+  <div class="search-section">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search for a product...">
+      <button class="search-btn">
+        <span class="search-icon">🔍</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="cart-section">
+    <img src="/images/icon/cart.png" alt="Shopping Cart" class="cart-icon" onerror="this.style.display='none'">
+    <span class="cart-count">0</span>
+  </div>
+</div>
+    </header>
+
+    <main class="divider">
+      <h1>Finalize Order</h1>
+      
+      <div class="checkout-layout">
+        <section class="checkout-form">
+          <h2>Payment Information</h2>
+          <form id="checkout-form">
+            <fieldset>
+              <legend>Personal information</legend>
+              <div class="form-group">
+                <label for="fname">First name *</label>
+                <input type="text" id="fname" name="fname" required>
+              </div>
+              <div class="form-group">
+                <label for="lname">Name *</label>
+                <input type="text" id="lname" name="lname" required>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Delivery Address</legend>
+              <div class="form-group">
+                <label for="street">Address *</label>
+                <input type="text" id="street" name="street" required>
+              </div>
+              <div class="form-group">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" required>
+              </div>
+              <div class="form-group">
+                <label for="state">State *</label>
+                <input type="text" id="state" name="state" required>
+              </div>
+              <div class="form-group">
+                <label for="zip">Postal Code *</label>
+                <input type="text" id="zip" name="zip" required>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Payment Information</legend>
+              <div class="form-group">
+                <label for="cardNumber">Credit Card Number *</label>
+                <input type="text" id="cardNumber" name="cardNumber" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="expiration">Exp. Date *</label>
+                  <input type="text" id="expiration" name="expiration" required placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                  <label for="code">Security Code *</label>
+                  <input type="text" id="code" name="code" required>
+                </div>
+              </div>
+            </fieldset>
+
+            <button type="submit" class="btn-primary">Payment</button>
+          </form>
+        </section>
+
+        <section class="order-summary">
+          <h2>Order summary</h2>
+          <div id="cart-items"></div>
+          <div class="order-totals">
+            <div class="total-line"><span>Subtotal:</span><span id="item-total">$0.00</span></div>
+            <div class="total-line"><span>Taxes (6%):</span><span id="tax">$0.00</span></div>
+            <div class="total-line"><span>Shipping Costs:</span><span id="shipping">$0.00</span></div>
+            <div class="total-line grand-total"><span>Total:</span><span id="order-total">$0.00</span></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+  </body>
+</html>
