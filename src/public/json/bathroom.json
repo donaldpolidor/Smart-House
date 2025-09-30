@@ -3,11 +3,11 @@
     {
       "id": "bath-1",
       "name": "Smart Mirror with LED Lights",
-      "image": "/images/bathroom/smart-mirror.jpg",
+      "image": "./images/bathroom/smart-mirror.jpg",
       "images": [
-        "/images/bathroom/smart-mirror.jpg",
-        "/images/bathroom/smart-mirror-2.jpg",
-        "/images/bathroom/smart-mirror-3.jpg"
+        "./images/bathroom/smart-mirror.jpg",
+        "./images/bathroom/smart-mirror-2.jpg",
+        "./images/bathroom/smart-mirror-3.jpg"
       ],
       "price": 299.99,
       "category": "bathroom",
@@ -19,11 +19,11 @@
     {
       "id": "bath-2",
       "name": "Digital Shower System",
-      "image": "/images/bathroom/digital-shower.jpg",
+      "image": "./images/bathroom/digital-shower.jpg",
       "images": [
-        "/images/bathroom/digital-shower.jpg",
-        "/images/bathroom/digital-shower-2.jpg",
-        "/images/bathroom/digital-shower-3.jpg"
+        "./images/bathroom/digital-shower.jpg",
+        "./images/bathroom/digital-shower-2.jpg",
+        "./images/bathroom/digital-shower-3.jpg"
       ],
       "price": 459.99,
       "category": "bathroom",
@@ -35,11 +35,11 @@
     {
       "id": "bath-3",
       "name": "Smart Toilet with Bidet",
-      "image": "/images/bathroom/smart-toilet.jpg",
+      "image": "./images/bathroom/smart-toilet.jpg",
       "images": [
-        "/images/bathroom/smart-toilet.jpg",
-        "/images/bathroom/smart-toilet-2.jpg",
-        "/images/bathroom/smart-toilet-3.jpg"
+        "./images/bathroom/smart-toilet.jpg",
+        "./images/bathroom/smart-toilet-2.jpg",
+        "./images/bathroom/smart-toilet-3.jpg"
       ],
       "price": 899.99,
       "category": "bathroom",
@@ -51,11 +51,11 @@
     {
       "id": "bath-4",
       "name": "Waterproof Bluetooth Speaker",
-      "image": "/images/bathroom/waterproof-speaker.jpg",
+      "image": "./images/bathroom/waterproof-speaker.jpg",
       "images": [
-        "/images/bathroom/waterproof-speaker.jpg",
-        "/images/bathroom/waterproof-speaker-2.jpg",
-        "/images/bathroom/waterproof-speaker-3.jpg"
+        "./images/bathroom/waterproof-speaker.jpg",
+        "./images/bathroom/waterproof-speaker-2.jpg",
+        "./images/bathroom/waterproof-speaker-3.jpg"
       ],
       "price": 79.99,
       "category": "bathroom",
@@ -67,11 +67,11 @@
     {
       "id": "bath-5",
       "name": "Smart Scale with Body Analysis",
-      "image": "/images/bathroom/smart-scale.jpg",
+      "image": "./images/bathroom/smart-scale.jpg",
       "images": [
-        "/images/bathroom/smart-scale.jpg",
-        "/images/bathroom/smart-scale-2.jpg",
-        "/images/bathroom/smart-scale-3.jpg"
+        "./images/bathroom/smart-scale.jpg",
+        "./images/bathroom/smart-scale-2.jpg",
+        "./images/bathroom/smart-scale-3.jpg"
       ],
       "price": 129.99,
       "category": "bathroom",
@@ -83,11 +83,11 @@
     {
       "id": "bath-6",
       "name": "LED Medicine Cabinet",
-      "image": "/images/bathroom/led-cabinet.jpg",
+      "image": "./images/bathroom/led-cabinet.jpg",
       "images": [
-        "/images/bathroom/led-cabinet.jpg",
-        "/images/bathroom/led-cabinet-2.jpg",
-        "/images/bathroom/led-cabinet-3.jpg"
+        "./images/bathroom/led-cabinet.jpg",
+        "./images/bathroom/led-cabinet-2.jpg",
+        "./images/bathroom/led-cabinet-3.jpg"
       ],
       "price": 349.99,
       "category": "bathroom",
@@ -99,11 +99,11 @@
     {
       "id": "bath-7",
       "name": "Digital Toothbrush Sanitizer",
-      "image": "/images/bathroom/toothbrush-sanitizer.jpg",
+      "image": "./images/bathroom/toothbrush-sanitizer.jpg",
       "images": [
-        "/images/bathroom/toothbrush-sanitizer.jpg",
-        "/images/bathroom/toothbrush-sanitizer-2.jpg",
-        "/images/bathroom/toothbrush-sanitizer-3.jpg"
+        "./images/bathroom/toothbrush-sanitizer.jpg",
+        "./images/bathroom/toothbrush-sanitizer-2.jpg",
+        "./images/bathroom/toothbrush-sanitizer-3.jpg"
       ],
       "price": 59.99,
       "category": "bathroom",
@@ -115,11 +115,11 @@
     {
       "id": "bath-8",
       "name": "Smart Towel Warmer",
-      "image": "/images/bathroom/towel-warmer.jpg",
+      "image": "./images/bathroom/towel-warmer.jpg",
       "images": [
-        "/images/bathroom/towel-warmer.jpg",
-        "/images/bathroom/towel-warmer-2.jpg",
-        "/images/bathroom/towel-warmer-3.jpg"
+        "./images/bathroom/towel-warmer.jpg",
+        "./images/bathroom/towel-warmer-2.jpg",
+        "./images/bathroom/towel-warmer-3.jpg"
       ],
       "price": 189.99,
       "category": "bathroom",
@@ -131,11 +131,11 @@
     {
       "id": "bath-9",
       "name": "Waterfall Bathroom Faucet",
-      "image": "/images/bathroom/waterfall-faucet.jpg",
+      "image": "./images/bathroom/waterfall-faucet.jpg",
       "images": [
-        "/images/bathroom/waterfall-faucet.jpg",
-        "/images/bathroom/waterfall-faucet-2.jpg",
-        "/images/bathroom/waterfall-faucet-3.jpg"
+        "./images/bathroom/waterfall-faucet.jpg",
+        "./images/bathroom/waterfall-faucet-2.jpg",
+        "./images/bathroom/waterfall-faucet-3.jpg"
       ],
       "price": 229.99,
       "category": "bathroom",
@@ -147,11 +147,11 @@
     {
       "id": "bath-10",
       "name": "Aromatherapy Shower Head",
-      "image": "/images/bathroom/aroma-shower.jpg",
+      "image": "./images/bathroom/aroma-shower.jpg",
       "images": [
-        "/images/bathroom/aroma-shower.jpg",
-        "/images/bathroom/aroma-shower-2.jpg",
-        "/images/bathroom/aroma-shower-3.jpg"
+        "./images/bathroom/aroma-shower.jpg",
+        "./images/bathroom/aroma-shower-2.jpg",
+        "./images/bathroom/aroma-shower-3.jpg"
       ],
       "price": 89.99,
       "category": "bathroom",
