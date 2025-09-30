@@ -1,6 +1,6 @@
 export default class ProductData {
   constructor() {
-    this.products = [];
+    this.allProducts = {};
     this.categories = [
       { id: "kitchen", name: "Kitchen", icon: "👨‍🍳" },
       { id: "bathroom", name: "Bathroom", icon: "🚿" },
@@ -9,70 +9,84 @@ export default class ProductData {
     ];
   }
 
-  async loadData(category) {
+  async loadCategoryData(category) {
     try {
-      let jsonFile;
+      // Chemins absolus pour Netlify - IMPORTANT
+      const paths = [
+        `/json/${category}.json`,
+        `./json/${category}.json`,
+        `/public/json/${category}.json`,
+        `../json/${category}.json`
+      ];
       
-      // Sélectionner le fichier JSON en fonction de la catégorie
-      switch(category) {
-        case 'kitchen':
-          jsonFile = '/public/json/kitchen.json';
-          break;
-        case 'bathroom':
-          jsonFile = '/public/json/bathroom.json';
-          break;
-        case 'cleaning':
-          jsonFile = '/public/json/cleaning.json';
-          break;
-        case 'decoration':
-          jsonFile = '/public/json/decoration.json';
-          break;
-        default:
-          jsonFile = '/public/json/kitchen.json';
+      let response;
+      for (const path of paths) {
+        try {
+          response = await fetch(path);
+          if (response.ok) break;
+        } catch (e) {
+          continue;
+        }
       }
       
-      const response = await fetch(jsonFile);
-      if (!response.ok) {
-        throw new Error(`Failed to load ${category} data`);
+      if (!response || !response.ok) {
+        console.warn(`Fichier ${category}.json non trouvé`);
+        this.allProducts[category] = [];
+        return [];
       }
+      
       const data = await response.json();
-      this.products = data.products || [];
+      this.allProducts[category] = data.products || [];
+      return this.allProducts[category];
       
     } catch (error) {
-      console.error(`Error loading ${category} product data:`, error);
-      this.products = [];
+      console.error(`Error loading ${category} data:`, error);
+      this.allProducts[category] = [];
+      return [];
     }
   }
 
   async getData(category = 'kitchen') {
-    // Recharger les données à chaque fois pour la catégorie demandée
-    await this.loadData(category);
-    return this.products;
+    // Si on a déjà les données, les retourner
+    if (this.allProducts[category] && this.allProducts[category].length > 0) {
+      return this.allProducts[category];
+    }
+    
+    // Sinon charger les données
+    const products = await this.loadCategoryData(category);
+    
+    // Si la catégorie est vide, charger kitchen comme fallback
+    if (products.length === 0 && category !== 'kitchen') {
+      console.log(`Catégorie ${category} vide, utilisation de kitchen`);
+      return await this.loadCategoryData('kitchen');
+    }
+    
+    return products;
   }
 
   async getProductById(id) {
-    // Pour trouver un produit par ID, on doit chercher dans tous les fichiers
-    // On commence par la cuisine (catégorie par défaut)
-    if (this.products.length === 0) {
-      await this.loadData('kitchen');
-    }
-    
-    let product = this.products.find(product => product.id === id);
-    
-    // Si pas trouvé, chercher dans les autres catégories
-    if (!product) {
-      const categories = ['bathroom', 'cleaning', 'decoration'];
-      for (const category of categories) {
-        await this.loadData(category);
-        product = this.products.find(product => product.id === id);
-        if (product) break;
+    // Chercher dans toutes les catégories
+    for (const category of this.categories) {
+      if (!this.allProducts[category.id]) {
+        await this.loadCategoryData(category.id);
+      }
+      
+      const product = this.allProducts[category.id].find(product => product.id === id);
+      if (product) {
+        return product;
       }
     }
     
-    return product;
+    console.warn(`Produit avec ID ${id} non trouvé`);
+    return null;
   }
 
   async getCategories() {
     return this.categories;
+  }
+
+  // Méthode pour vider le cache
+  clearCache() {
+    this.allProducts = {};
   }
 }
