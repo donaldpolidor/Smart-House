@@ -3,3 +3,61 @@ https://trello.com/b/SwoOhVC9/sleep-outside-team-01
 
 ===============
 Donald Polidor
+
+
+Application des Couleurs
+Boutons :
+
+css
+.btn-primary {
+  background: #4CAF50;
+  color: white;
+  border-radius: 8px;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+}
+
+
+Cartes Produit :
+Fond : #FFFFFF
+Bordure : légère ombre portée
+Badge "Promo" : #FF9800
+Prix : #4CAF50 (gras)
+
+📱 Exemple de Composants
+Header :
+
+css
+header {
+  background: #FFFFFF;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+
+Note Autocollante :
+
+css
+.sticky-note {
+  background: #FFF9C4;
+  border-left: 4px solid #4CAF50;
+  font-family: 'Open Sans', cursive;
+}
+
+
+Import Google Fonts :
+
+html
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+Hiérarchie typographique :
+
+H1: Poppins 28px
+
+H2: Poppins 24px
+
+Body: Inter 16px
+
+Small: Inter 14px

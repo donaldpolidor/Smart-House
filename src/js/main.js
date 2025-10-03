@@ -7,16 +7,37 @@ class ProductCatalog {
     this.dataSource = new ProductData();
     this.currentCategory = 'kitchen';
     this.imageModal = new ImageModal();
+    this.productsData = []; // Stocker les données des produits
+    this.allProducts = []; // Stocker tous les produits pour la recherche
+    this.isSearching = false;
     this.init();
   }
 
   async init() {
+    await this.loadAllProducts(); // Charger tous les produits pour la recherche
     await this.loadProducts('kitchen');
     this.setupEventListeners();
     updateCartCount();
     
     // Activer les previews d'images
-    this.imageModal.attachToProductImages();
+    setTimeout(() => {
+      this.attachImagePreviews();
+    }, 200);
+  }
+
+  async loadAllProducts() {
+    try {
+      const categories = ['kitchen', 'bathroom', 'cleaning', 'decoration'];
+      this.allProducts = [];
+      
+      for (const category of categories) {
+        const products = await this.dataSource.getData(category);
+        this.allProducts = this.allProducts.concat(products);
+      }
+      console.log(`Loaded ${this.allProducts.length} products for search`);
+    } catch (error) {
+      console.error('Error loading all products for search:', error);
+    }
   }
 
   async loadProducts(category) {
@@ -25,6 +46,7 @@ class ProductCatalog {
 
     try {
       const products = await this.dataSource.getData(category);
+      this.productsData = products; // Sauvegarder les données
       
       if (products.length === 0 && category !== 'kitchen') {
         this.displayComingSoon(category);
@@ -32,7 +54,7 @@ class ProductCatalog {
         this.displayProducts(products);
         // Réattacher les événements de preview après le chargement
         setTimeout(() => {
-          this.imageModal.attachToProductImages();
+          this.attachImagePreviews();
         }, 100);
       }
     } catch (error) {
@@ -51,25 +73,45 @@ class ProductCatalog {
 
     productsGrid.innerHTML = products.map(product => `
       <div class="product-card" data-id="${product.id}">
+        ${product.isNew ? '<span class="new-badge">NEW</span>' : ''}
+        ${product.onSale ? '<span class="promo-badge">SALE</span>' : ''}
+        ${!product.inStock ? '<span class="out-of-stock">Out of Stock</span>' : ''}
+        
         <img src="${product.image}" alt="${product.name}" class="product-image" 
              onerror="this.src='/images/placeholder.jpg'"
              loading="lazy"
-             data-product-id="${product.id}">
+             data-product-id="${product.id}"
+             tabindex="0"
+             role="button"
+             aria-label="Click to preview ${product.name}">
+        
         <h3 class="product-name">${product.name}</h3>
         <p class="product-description">${product.description}</p>
+        
         <div class="product-features">
           ${product.features ? product.features.slice(0, 3).map(feature => 
             `<span class="feature-tag">${feature}</span>`
           ).join('') : ''}
         </div>
+        
         <div class="product-rating">
           ${this.generateStarRating(product.rating || 4.0)}
           <span class="rating-value">${(product.rating || 4.0).toFixed(1)}</span>
         </div>
-        <p class="product-price">$${product.price.toFixed(2)}</p>
+        
+        ${product.onSale ? `
+          <div class="product-price">
+            <span class="discount-price">$${(product.price * 0.8).toFixed(2)}</span>
+            <span class="original-price">$${product.price.toFixed(2)}</span>
+          </div>
+          <div class="stock-alert">Limited Time Offer!</div>
+        ` : `
+          <p class="product-price">$${product.price.toFixed(2)}</p>
+        `}
+        
         ${product.inStock ? 
-          `<button class="add-to-cart-btn" data-id="${product.id}">
-            Add to Cart
+          `<button class="add-to-cart-btn ${product.onSale ? 'btn-accent' : ''}" data-id="${product.id}">
+            ${product.onSale ? 'Buy Now - 20% OFF' : 'Add to Cart'}
           </button>` : 
           `<p class="out-of-stock">Out of Stock</p>`
         }
@@ -77,6 +119,176 @@ class ProductCatalog {
     `).join('');
 
     this.setupAddToCartButtons();
+  }
+
+  // NOUVELLE MÉTHODE : Recherche de produits
+  searchProducts(searchTerm) {
+    const productsGrid = document.getElementById('products-grid');
+    
+    if (!searchTerm.trim()) {
+      // Si la recherche est vide, revenir aux produits de la catégorie actuelle
+      this.isSearching = false;
+      this.loadProducts(this.currentCategory);
+      return;
+    }
+
+    this.isSearching = true;
+    
+    // Filtrer les produits basé sur le terme de recherche
+    const filteredProducts = this.allProducts.filter(product => 
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (product.features && product.features.some(feature => 
+        feature.toLowerCase().includes(searchTerm.toLowerCase())
+      ))
+    );
+
+    if (filteredProducts.length > 0) {
+      // Afficher les produits trouvés
+      this.displaySearchResults(filteredProducts, searchTerm);
+    } else {
+      // Aucun produit trouvé
+      this.displayNoResults(searchTerm);
+    }
+  }
+
+  displaySearchResults(products, searchTerm) {
+    const productsGrid = document.getElementById('products-grid');
+    
+    productsGrid.innerHTML = `
+      <div class="search-results-header">
+        <h3>Search Results for "${searchTerm}"</h3>
+        <p>Found ${products.length} product(s)</p>
+        <button class="btn-secondary clear-search-btn">Clear Search</button>
+      </div>
+      ${products.map(product => `
+        <div class="product-card" data-id="${product.id}">
+          ${product.isNew ? '<span class="new-badge">NEW</span>' : ''}
+          ${product.onSale ? '<span class="promo-badge">SALE</span>' : ''}
+          ${!product.inStock ? '<span class="out-of-stock">Out of Stock</span>' : ''}
+          
+          <img src="${product.image}" alt="${product.name}" class="product-image" 
+               onerror="this.src='/images/placeholder.jpg'"
+               loading="lazy"
+               data-product-id="${product.id}">
+          
+          <h3 class="product-name">${product.name}</h3>
+          <p class="product-description">${product.description}</p>
+          
+          <div class="product-features">
+            ${product.features ? product.features.slice(0, 3).map(feature => 
+              `<span class="feature-tag">${feature}</span>`
+            ).join('') : ''}
+          </div>
+          
+          <div class="product-rating">
+            ${this.generateStarRating(product.rating || 4.0)}
+            <span class="rating-value">${(product.rating || 4.0).toFixed(1)}</span>
+          </div>
+          
+          ${product.onSale ? `
+            <div class="product-price">
+              <span class="discount-price">$${(product.price * 0.8).toFixed(2)}</span>
+              <span class="original-price">$${product.price.toFixed(2)}</span>
+            </div>
+            <div class="stock-alert">Limited Time Offer!</div>
+          ` : `
+            <p class="product-price">$${product.price.toFixed(2)}</p>
+          `}
+          
+          ${product.inStock ? 
+            `<button class="add-to-cart-btn ${product.onSale ? 'btn-accent' : ''}" data-id="${product.id}">
+              ${product.onSale ? 'Buy Now - 20% OFF' : 'Add to Cart'}
+            </button>` : 
+            `<p class="out-of-stock">Out of Stock</p>`
+          }
+        </div>
+      `).join('')}
+    `;
+
+    this.setupAddToCartButtons();
+    this.setupClearSearchButton();
+    this.attachImagePreviews();
+  }
+
+  displayNoResults(searchTerm) {
+    const productsGrid = document.getElementById('products-grid');
+    
+    productsGrid.innerHTML = `
+      <div class="no-results">
+        <div class="no-results-icon">🔍</div>
+        <h3>No products found for "${searchTerm}"</h3>
+        <p>This item is not yet available.</p>
+        <div class="suggestions">
+          <p>Suggestions:</p>
+          <ul>
+            <li>Check the spelling</li>
+            <li>Try more general keywords</li>
+            <li>Browse by category</li>
+          </ul>
+        </div>
+        <button class="btn-primary clear-search-btn">Back to Catalog</button>
+      </div>
+    `;
+
+    this.setupClearSearchButton();
+  }
+
+  setupClearSearchButton() {
+    const clearButtons = document.querySelectorAll('.clear-search-btn');
+    clearButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        this.clearSearch();
+      });
+    });
+  }
+
+  clearSearch() {
+    const searchInput = document.querySelector('.search-input');
+    searchInput.value = '';
+    this.isSearching = false;
+    this.loadProducts(this.currentCategory);
+  }
+
+  // NOUVELLE MÉTHODE : Attacher les previews d'images
+  attachImagePreviews() {
+    const productImages = document.querySelectorAll('.product-image');
+    
+    productImages.forEach(img => {
+      // Supprimer les écouteurs existants pour éviter les doublons
+      const newImg = img.cloneNode(true);
+      img.parentNode.replaceChild(newImg, img);
+      
+      // Trouver le produit correspondant
+      const productId = newImg.getAttribute('data-product-id');
+      const product = this.allProducts.find(p => p.id === productId);
+      
+      if (product) {
+        // Ajouter les écouteurs d'événements
+        newImg.addEventListener('click', () => {
+          this.imageModal.openModal(newImg, product);
+        });
+        
+        newImg.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.imageModal.openModal(newImg, product);
+          }
+        });
+        
+        // Style pour indiquer que c'est cliquable
+        newImg.style.cursor = 'zoom-in';
+        newImg.style.transition = 'transform 0.2s ease';
+        
+        newImg.addEventListener('mouseenter', () => {
+          newImg.style.transform = 'scale(1.02)';
+        });
+        
+        newImg.addEventListener('mouseleave', () => {
+          newImg.style.transform = 'scale(1)';
+        });
+      }
+    });
   }
 
   generateStarRating(rating) {
@@ -175,6 +387,9 @@ class ProductCatalog {
     
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
+        if (this.isSearching) {
+          this.clearSearch();
+        }
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         const category = tab.getAttribute('data-category');
@@ -183,16 +398,48 @@ class ProductCatalog {
       });
     });
 
+    // Événements de recherche
+    const searchInput = document.querySelector('.search-input');
+    const searchBtn = document.querySelector('.search-btn');
+
+    // Recherche au clic sur le bouton
+    searchBtn.addEventListener('click', () => {
+      const searchTerm = searchInput.value.trim();
+      this.searchProducts(searchTerm);
+    });
+
+    // Recherche avec la touche Enter
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const searchTerm = searchInput.value.trim();
+        this.searchProducts(searchTerm);
+      }
+    });
+
+    // Recherche en temps réel (optionnel - décommentez si vous le voulez)
+    // searchInput.addEventListener('input', (e) => {
+    //   const searchTerm = e.target.value.trim();
+    //   if (searchTerm.length >= 2) {
+    //     this.searchProducts(searchTerm);
+    //   } else if (searchTerm.length === 0 && this.isSearching) {
+    //     this.clearSearch();
+    //   }
+    // });
+
     document.querySelector('.cart-section').addEventListener('click', () => {
       window.location.href = '/cart/index.html';
     });
 
     // Navigation au clavier pour les images
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' || e.key === ' ') {
         const focusedElement = document.activeElement;
         if (focusedElement.classList.contains('product-image')) {
-          this.imageModal.openModal(focusedElement);
+          const productId = focusedElement.getAttribute('data-product-id');
+          const product = this.allProducts.find(p => p.id === productId);
+          if (product) {
+            this.imageModal.openModal(focusedElement, product);
+          }
         }
       }
     });

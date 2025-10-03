@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/style.css" />
     <script src="/js/main.js" type="module"></script>
     <script src="/js/sidebar.js" type="module"></script>
+    <script src="/js/contact.js" defer></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
   </head>
   <body>
@@ -37,7 +38,7 @@
       <!-- Sidebar -->
       <aside class="sidebar">
         <div class="sidebar-section">
-          <h3>Advertisements</h3>
+          <h3>Article coming soon</h3>
           <div class="ads-container">
             <div class="ads-slider">
               <img src="/images/pub_1.jpg" alt="Advertisement 1" class="ad-image active">
@@ -76,6 +77,68 @@
           <img src="/images/banner.jpg" alt="Household Products Banner" class="banner-image">
         </section>
 
+        <!-- BOUTON CONTACT US AVEC ANIMATION DE DÉPLIEMENT -->
+        <section class="contact-toggle-section">
+          <button class="contact-toggle-btn" id="contactToggle">
+            <span class="toggle-icon">📞</span>
+            <span class="toggle-text">Contact Us</span>
+            <span class="toggle-arrow">▼</span>
+          </button>
+          
+          <div class="contact-dropdown" id="contactDropdown">
+            <div class="contact-container">
+              <div class="contact-content">
+                <div class="contact-info">
+                  <h3>Get in Touch</h3>
+                  <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <div class="contact-details">
+                      <strong>Phone:</strong>
+                      <a href="tel:+50944287832" class="contact-link">+(509) 4428-7832</a>
+                    </div>
+                  </div>
+                  <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <div class="contact-details">
+                      <strong>Email:</strong>
+                      <a href="mailto:donaldpolidor30@gmail.com" class="contact-link">donaldpolidor30@gmail.com</a>
+                    </div>
+                  </div>
+                  <div class="contact-hours">
+                    <h4>Business Hours</h4>
+                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    <p>Saturday: 10:00 AM - 4:00 PM</p>
+                    <p>Sunday: Closed</p>
+                  </div>
+                </div>
+
+                <div class="contact-form">
+                  <h3>Send us a Message</h3>
+                  <form id="contactForm" class="message-form">
+                    <div class="form-group">
+                      <label for="name">Your Name</label>
+                      <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Your Email</label>
+                      <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="subject">Subject</label>
+                      <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="message">Message</label>
+                      <textarea id="message" name="message" rows="5" required placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary send-message-btn">Send Message</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="catalog-section">
           <h1 class="catalog-title">CATALOG</h1>
           <nav class="catalog-nav">
@@ -97,6 +160,7 @@
     </div>
 
     <footer id="main-footer">
+      <script src="/js/weather.js" type="module"></script>
       <div class="footer-content">
         <p>&copy; 2025 SmartHome. All rights reserved.</p>
         <p>🏢WDD 330 | BYU-Idaho | Donald Polidor🌎</p>

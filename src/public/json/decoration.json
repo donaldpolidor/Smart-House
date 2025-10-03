@@ -1,0 +1,120 @@
+{
+  "products": [
+    {
+      "id": "deco-1",
+      "name": "Smart LED Strip Lights",
+      "image": "/images/decoration/led-strip.jpg",
+      "images": [
+        "/images/decoration/led-strip.jpg",
+        "/images/decoration/led-strip-2.jpg",
+        "/images/decoration/led-strip-3.jpg"
+      ],
+      "price": 39.99,
+      "category": "decoration",
+      "description": "Color-changing LED strip lights with smartphone app control and voice assistant compatibility.",
+      "features": ["16 million colors", "App control", "Voice commands", "Music sync", "Timer function", "Easy installation"],
+      "inStock": true,
+      "rating": 4.6
+    },
+    {
+      "id": "deco-2",
+      "name": "Smart Picture Frame Digital",
+      "image": "/images/decoration/smart-frame.jpg",
+      "images": [
+        "/images/decoration/smart-frame.jpg",
+        "/images/decoration/smart-frame-2.jpg",
+        "/images/decoration/smart-frame-3.jpg"
+      ],
+      "price": 129.99,
+      "category": "decoration",
+      "description": "High-resolution digital picture frame that displays your photos from cloud storage automatically.",
+      "features": ["10-inch display", "Cloud storage", "Auto-rotation", "Motion sensor", "Wi-Fi connectivity", "Slim design"],
+      "inStock": true,
+      "rating": 4.4
+    },
+    {
+      "id": "deco-3",
+      "name": "Smart Flower Pot with LED",
+      "image": "/images/decoration/smart-pot.jpg",
+      "images": [
+        "/images/decoration/smart-pot.jpg",
+        "/images/decoration/smart-pot-2.jpg",
+        "/images/decoration/smart-pot-3.jpg"
+      ],
+      "price": 49.99,
+      "category": "decoration",
+      "description": "Self-watering smart flower pot with built-in LED grow lights and soil moisture sensor.",
+      "features": ["Self-watering", "LED grow lights", "Moisture sensor", "App monitoring", "Auto light cycle", "Modern design"],
+      "inStock": true,
+      "rating": 4.3
+    },
+    {
+      "id": "deco-4",
+      "name": "Smart Wall Clock",
+      "image": "/images/decoration/smart-clock.jpg",
+      "images": [
+        "/images/decoration/smart-clock.jpg",
+        "/images/decoration/smart-clock-2.jpg",
+        "/images/decoration/smart-clock-3.jpg"
+      ],
+      "price": 79.99,
+      "category": "decoration",
+      "description": "Elegant smart clock that displays time, weather, and can be controlled via voice commands.",
+      "features": ["Weather display", "Voice control", "Multiple faces", "Alarm function", "Wireless charging", "Sleek design"],
+      "inStock": true,
+      "rating": 4.5
+    },
+    {
+      "id": "deco-5",
+      "name": "Color Changing Smart Lamp",
+      "image": "/images/decoration/smart-lamp.jpg",
+      "images": [
+        "/images/decoration/smart-lamp.jpg",
+        "/images/decoration/smart-lamp-2.jpg",
+        "/images/decoration/smart-lamp-3.jpg"
+      ],
+      "price": 69.99,
+      "category": "decoration",
+      "description": "Modern table lamp with millions of colors, mood settings, and smart home integration.",
+      "features": ["RGB colors", "Mood lighting", "App control", "Scheduling", "Dimmable", "Modern design"],
+      "inStock": true,
+      "rating": 4.7
+    },
+   
+    {
+      "id": "deco-6",
+      "name": "Smart Wall Panel Art",
+      "image": "/images/decoration/smart-art.jpg",
+      "images": [
+        "/images/decoration/smart-art.jpg",
+        "/images/decoration/smart-art-2.jpg",
+        "/images/decoration/smart-art-3.jpg"
+      ],
+      "price": 149.99,
+      "category": "decoration",
+      "description": "Digital art panel that displays thousands of artworks and can be customized to match your mood.",
+      "features": ["Digital artwork", "Custom images", "App control", "Slim design", "Multiple sizes", "Wall mounted"],
+      "inStock": true,
+      "rating": 4.6
+    },
+    {
+      "id": "deco-7",
+      "name": "Smart Crystal Gemstone Lamp",
+      "image": "/images/decoration/crystal-lamp.jpg",
+      "images": [
+        "/images/decoration/crystal-lamp.jpg",
+        "/images/decoration/crystal-lamp-2.jpg",
+        "/images/decoration/crystal-lamp-3.jpg"
+      ],
+      "price": 89.99,
+      "category": "decoration",
+      "description": "Elegant crystal lamp with color-changing features and remote control operation.",
+      "features": ["Crystal design", "Color changing", "Remote control", "Touch sensitive", "USB powered", "Elegant look"],
+      "inStock": true,
+      "rating": 4.4
+    }
+  ],
+  "categories": [
+    {"id": "decoration", "name": "Decoration", "icon": "🎨"}
+  ]
+}

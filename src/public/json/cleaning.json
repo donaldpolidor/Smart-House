@@ -1,0 +1,119 @@
+{
+  "products": [
+    {
+      "id": "clean-1",
+      "name": "Smart Robot Vacuum",
+      "image": "/images/cleaning/robot-vacuum.jpg",
+      "images": [
+        "/images/cleaning/robot-vacuum.jpg",
+        "/images/cleaning/robot-vacuum-2.jpg",
+        "/images/cleaning/robot-vacuum-3.jpg"
+      ],
+      "price": 249.99,
+      "category": "cleaning",
+      "description": "Intelligent robot vacuum with smart navigation, app control and automatic charging.",
+      "features": ["Smart mapping", "App control", "Auto recharge", "Voice commands", "Carpet boost", "Virtual walls"],
+      "inStock": true,
+      "rating": 4.5
+    },
+    {
+      "id": "clean-2",
+      "name": "Steam Mop Pro",
+      "image": "/images/cleaning/steam-mop.jpg",
+      "images": [
+        "/images/cleaning/steam-mop.jpg",
+        "/images/cleaning/steam-mop-2.jpg",
+        "/images/cleaning/steam-mop-3.jpg"
+      ],
+      "price": 89.99,
+      "category": "cleaning",
+      "description": "Powerful steam mop that sanitizes floors without chemicals using high-temperature steam.",
+      "features": ["30s heat up", "Chemical-free", "Washable pads", "Adjustable steam", "Lightweight", "Easy storage"],
+      "inStock": true,
+      "rating": 4.3
+    },
+    {
+      "id": "clean-3",
+      "name": "Cordless Stick Vacuum",
+      "image": "/images/cleaning/stick-vacuum.jpg",
+      "images": [
+        "/images/cleaning/stick-vacuum.jpg",
+        "/images/cleaning/stick-vacuum-2.jpg",
+        "/images/cleaning/stick-vacuum-3.jpg"
+      ],
+      "price": 179.99,
+      "category": "cleaning",
+      "description": "Lightweight cordless vacuum with powerful suction and long-lasting battery life.",
+      "features": ["45min runtime", "LED headlights", "Wall mount", "Washable filter", "2-speed settings", "Lightweight design"],
+      "inStock": true,
+      "rating": 4.4
+    },
+    {
+      "id": "clean-4",
+      "name": "HEPA Air Purifier",
+      "image": "/images/cleaning/air-purifier.jpg",
+      "images": [
+        "/images/cleaning/air-purifier.jpg",
+        "/images/cleaning/air-purifier-2.jpg",
+        "/images/cleaning/air-purifier-3.jpg"
+      ],
+      "price": 199.99,
+      "category": "cleaning",
+      "description": "Advanced air purifier with HEPA filter that captures 99.97% of airborne particles.",
+      "features": ["True HEPA filter", "Air quality sensor", "Auto mode", "Night mode", "Child lock", "Filter indicator"],
+      "inStock": true,
+      "rating": 4.6
+    },
+    {
+      "id": "clean-5",
+      "name": "Ultrasonic Humidifier",
+      "image": "/images/cleaning/humidifier.jpg",
+      "images": [
+        "/images/cleaning/humidifier.jpg",
+        "/images/cleaning/humidifier-2.jpg",
+        "/images/cleaning/humidifier-3.jpg"
+      ],
+      "price": 59.99,
+      "category": "cleaning",
+      "description": "Large capacity humidifier with essential oil diffuser for dry environments.",
+      "features": ["4L capacity", "Essential oil diffuser", "Auto shut-off", "Quiet operation", "Adjustable mist", "Night light"],
+      "inStock": true,
+      "rating": 4.2
+    },
+    {
+      "id": "clean-6",
+      "name": "Smart Trash Can",
+      "image": "/images/cleaning/smart-trashcan.jpg",
+      "images": [
+        "/images/cleaning/smart-trashcan.jpg",
+        "/images/cleaning/smart-trashcan-2.jpg",
+        "/images/cleaning/smart-trashcan-3.jpg"
+      ],
+      "price": 129.99,
+      "category": "cleaning",
+      "description": "Automatic motion-sensor trash can with odor control and hands-free operation.",
+      "features": ["Motion sensor", "Odor control", "Battery powered", "8L capacity", "Stainless steel", "Easy clean"],
+      "inStock": true,
+      "rating": 4.1
+    },
+    {
+      "id": "clean-7",
+      "name": "UV Sanitizer Wand",
+      "image": "/images/cleaning/uv-wand.jpg",
+      "images": [
+        "/images/cleaning/uv-wand.jpg",
+        "/images/cleaning/uv-wand-2.jpg",
+        "/images/cleaning/uv-wand-3.jpg"
+      ],
+      "price": 79.99,
+      "category": "cleaning",
+      "description": "Portable UV-C light sanitizer that eliminates 99.9% of germs on surfaces and personal items.",
+      "features": ["UV-C technology", "Portable design", "30s treatment", "Safe for electronics", "Battery operated", "LED indicator"],
+      "inStock": true,
+      "rating": 4.0
+    }
+  ],
+  "categories": [
+    {"id": "cleaning", "name": "Cleaning", "icon": "🧹"}
+  ]
+}
