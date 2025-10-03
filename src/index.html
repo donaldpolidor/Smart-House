@@ -9,6 +9,8 @@
     <script src="/js/sidebar.js" type="module"></script>
     <script src="/js/contact.js" defer></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    <script src="/js/mobile-sidebar.js" defer></script>
+    <script src="/js/weather.js" type="module"></script>
   </head>
   <body>
     <header class="main-header">
@@ -33,6 +35,36 @@
   </div>
 </div>
     </header>
+
+    <!-- Systeme d'onglets mobile -->
+<div class="mobile-sidebar-tabs">
+  <button class="mobile-tab-btn" data-tab="articles">
+    <span class="tab-icon">📰</span>
+    <span>Articles</span>
+  </button>
+  <button class="mobile-tab-btn" data-tab="weather">
+    <span class="tab-icon">🌤️</span>
+    <span>Météo</span>
+  </button>
+  <button class="mobile-tab-btn" data-tab="notes">
+    <span class="tab-icon">📝</span>
+    <span>Notes</span>
+  </button>
+</div>
+
+<!-- Overlay sidebar mobile -->
+<div class="mobile-sidebar-overlay" id="mobileSidebar">
+  <div class="mobile-sidebar-header">
+    <h3 class="mobile-sidebar-title" id="mobileSidebarTitle">Upcoming articles</h3>
+    <button class="close-sidebar-btn" id="closeSidebarBtn">✕</button>
+  </div>
+  <div class="mobile-sidebar-content" id="mobileSidebarContent">
+    <!-- Le contenu sera injecté ici par JavaScript -->
+  </div>
+</div>
+
+<!-- Backdrop pour fermer -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <div class="main-layout">
       <!-- Sidebar -->
@@ -160,7 +192,6 @@
     </div>
 
     <footer id="main-footer">
-      <script src="/js/weather.js" type="module"></script>
       <div class="footer-content">
         <p>&copy; 2025 SmartHome. All rights reserved.</p>
         <p>🏢WDD 330 | BYU-Idaho | Donald Polidor🌎</p>

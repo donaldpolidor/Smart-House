@@ -482,6 +482,374 @@ body {
   }
 }
 
+/* ===== SYSTEME D'ONGLETS MOBILE ===== */
+
+/* Desktop: rien ne change */
+@media (min-width: 769px) {
+  .mobile-sidebar-tabs { display: none; }
+  .sidebar { display: block; }
+}
+
+/* Mobile: activation du système d'onglets */
+@media (max-width: 768px) {
+  /* Cache la sidebar normale */
+  .sidebar {
+    display: none;
+  }
+  
+  /* Container principal des onglets */
+  .mobile-sidebar-tabs {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0 12px 12px 0;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+  }
+  
+  /* Boutons onglets */
+  .mobile-tab-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .mobile-tab-btn:hover {
+    border-color: var(--primary);
+    transform: translateX(5px);
+  }
+  
+  .mobile-tab-btn.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+    transform: translateX(8px);
+  }
+  
+  .tab-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Overlay de la sidebar mobile */
+  .mobile-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    height: 100%;
+    background: rgba(248, 245, 240, 0.98);
+    z-index: 999;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    padding: 1.5rem;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+  }
+  
+  .mobile-sidebar-overlay.active {
+    left: 0;
+  }
+  
+  /* Header de la sidebar mobile */
+  .mobile-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary);
+  }
+  
+  .mobile-sidebar-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+  }
+  
+  .close-sidebar-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .close-sidebar-btn:hover {
+    background: rgba(76, 175, 80, 0.1);
+    color: var(--primary);
+  }
+  
+  /* Contenu de la sidebar mobile */
+  .mobile-sidebar-content {
+    animation: slideInRight 0.3s ease;
+  }
+  
+  /* Ajustement du main content pour la sidebar mobile */
+  .main-content {
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.sidebar-open {
+    margin-left: 0;
+    position: relative;
+  }
+  
+  /* Overlay de fond */
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Animation pour le contenu */
+/* ===== SYSTEME D'ONGLETS MOBILE CORRIGÉ ===== */
+
+/* Desktop: cache complètement la sidebar mobile */
+@media (min-width: 769px) {
+  .mobile-sidebar-tabs,
+  .mobile-sidebar-overlay,
+  .sidebar-backdrop {
+    display: none !important;
+  }
+  
+  .sidebar {
+    display: block !important;
+  }
+}
+
+/* Mobile: activation du système d'onglets */
+@media (max-width: 768px) {
+  /* Cache la sidebar normale */
+  .sidebar {
+    display: none !important;
+  }
+  
+  /* Container principal des onglets */
+  .mobile-sidebar-tabs {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0 12px 12px 0;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+  }
+  
+  /* Boutons onglets */
+  .mobile-tab-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .mobile-tab-btn:hover {
+    border-color: var(--primary);
+    transform: translateX(5px);
+  }
+  
+  .mobile-tab-btn.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+    transform: translateX(8px);
+  }
+  
+  .tab-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Overlay de la sidebar mobile */
+  .mobile-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    height: 100%;
+    background: rgba(248, 245, 240, 0.98);
+    z-index: 999;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    padding: 1.5rem;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+  }
+  
+  .mobile-sidebar-overlay.active {
+    left: 0;
+  }
+  
+  /* Header de la sidebar mobile */
+  .mobile-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary);
+  }
+  
+  .mobile-sidebar-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+  }
+  
+  .close-sidebar-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .close-sidebar-btn:hover {
+    background: rgba(76, 175, 80, 0.1);
+    color: var(--primary);
+  }
+  
+  /* Contenu de la sidebar mobile */
+  .mobile-sidebar-content {
+    animation: slideInRight 0.3s ease;
+  }
+  
+  /* Correction taille images articles mobile */
+  .mobile-sidebar-overlay .ads-slider {
+    height: 150px !important;
+  }
+  
+  .mobile-sidebar-overlay .ad-image {
+    object-fit: contain !important;
+    background: #f8f9fa;
+  }
+  
+  .mobile-sidebar-overlay .ads-container {
+    min-height: 120px !important;
+    padding: 0.5rem !important;
+  }
+  
+  /* Ajustement du main content pour la sidebar mobile */
+  .main-content {
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.sidebar-open {
+    margin-left: 0;
+    position: relative;
+  }
+  
+  /* Overlay de fond */
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Animation pour le contenu */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Pour les très petits écrans */
+@media (max-width: 480px) {
+  .mobile-sidebar-overlay {
+    width: 90%;
+  }
+  
+  .mobile-tab-btn {
+    min-width: 50px;
+    padding: 0.6rem 0.4rem;
+    font-size: 0.65rem;
+  }
+  
+  .tab-icon {
+    font-size: 1.1rem;
+  }
+  
+  .mobile-sidebar-overlay .ads-slider {
+    height: 120px !important;
+  }
+}
+
 /* Pour les très petits écrans */
 @media (max-width: 480px) {
   .banner-image {
@@ -2283,4 +2651,85 @@ footer {
 
 .sidebar.scrolling-bottom::after {
   opacity: 1;
+}
+
+/* ===== CORRECTIONS SPÉCIFIQUES MÉTÉO MOBILE ===== */
+
+/* Styles pour les détails météo dans la sidebar mobile */
+.mobile-sidebar-overlay .weather-details {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0.75rem !important;
+  margin: 1.5rem 0 !important;
+  padding: 1rem !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.mobile-sidebar-overlay .weather-detail-item {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 0.5rem !important;
+}
+
+.mobile-sidebar-overlay .detail-label {
+  font-size: 0.7rem !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin-bottom: 0.25rem !important;
+  font-weight: 500 !important;
+}
+
+.mobile-sidebar-overlay .detail-value {
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+.mobile-sidebar-overlay .weather-forecast {
+  background: rgba(0, 0, 0, 0.2) !important;
+  padding: 1rem !important;
+  border-radius: 8px !important;
+  margin: 1rem 0 !important;
+  text-align: center !important;
+}
+
+.mobile-sidebar-overlay .forecast-title {
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.mobile-sidebar-overlay .forecast-desc {
+  font-size: 0.8rem !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  line-height: 1.4 !important;
+}
+
+/* S'assurer que le widget météo mobile a le bon style */
+.mobile-sidebar-overlay .weather-widget {
+  background: linear-gradient(135deg, #00209f 0%, #d21034 100%) !important;
+  color: white !important;
+  border-radius: 16px !important;
+  padding: 1.5rem !important;
+  text-align: center !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+/* Correction pour les très petits écrans */
+@media (max-width: 480px) {
+  .mobile-sidebar-overlay .weather-details {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .mobile-sidebar-overlay .weather-widget {
+    padding: 1rem !important;
+  }
 }
