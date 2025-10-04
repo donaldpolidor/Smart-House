@@ -1,121 +1,190 @@
+// mobile-sidebar.js
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
 
-class SidebarManager {
+class MobileSidebarManager {
   constructor() {
-    this.ads = document.querySelectorAll('.ad-image');
-    this.currentAd = 0;
-    this.weatherContent = document.querySelector('.weather-content');
-    this.weatherLoading = document.querySelector('.weather-loading');
-    this.noteInput = document.querySelector('.note-input');
-    this.saveNoteBtn = document.querySelector('.save-note-btn');
-    this.savedNotes = document.querySelector('.saved-notes');
-    this.sidebar = document.querySelector('.sidebar');
+    this.tabButtons = document.querySelectorAll('.mobile-tab-btn');
+    this.mobileSidebar = document.getElementById('mobileSidebar');
+    this.sidebarTitle = document.getElementById('mobileSidebarTitle');
+    this.sidebarContent = document.getElementById('mobileSidebarContent');
+    this.closeBtn = document.getElementById('closeSidebarBtn');
+    this.backdrop = document.getElementById('sidebarBackdrop');
     
     this.init();
   }
 
   init() {
-    this.startAdsSlider();
-    this.loadWeather();
-    this.loadSavedNotes();
-    this.setupNoteEvents();
-    this.setupScrollEffects();
+    this.setupTabEvents();
+    this.setupCloseEvents();
+    this.loadInitialContent();
   }
 
-  // Effets de scroll pour la sidebar
-  setupScrollEffects() {
-    if (!this.sidebar) return;
+  setupTabEvents() {
+    this.tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.getAttribute('data-tab');
+        this.openSidebar(tab);
+      });
+    });
+  }
 
-    let scrollTimeout;
+  setupCloseEvents() {
+    this.closeBtn.addEventListener('click', () => this.closeSidebar());
+    this.backdrop.addEventListener('click', () => this.closeSidebar());
     
-    this.sidebar.addEventListener('scroll', () => {
-      // Ajouter la classe scrolling pendant le défilement
-      this.sidebar.classList.add('scrolling');
-      
-      // Gestion des effets de bord
-      const scrollTop = this.sidebar.scrollTop;
-      const scrollHeight = this.sidebar.scrollHeight;
-      const clientHeight = this.sidebar.clientHeight;
-      
-      if (scrollTop === 0) {
-        this.sidebar.classList.remove('scrolling-top');
-      } else {
-        this.sidebar.classList.add('scrolling-top');
-      }
-      
-      if (scrollTop + clientHeight >= scrollHeight - 5) {
-        this.sidebar.classList.add('scrolling-bottom');
-      } else {
-        this.sidebar.classList.remove('scrolling-bottom');
-      }
-      
-      // Retirer la classe scrolling après arrêt du défilement
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        this.sidebar.classList.remove('scrolling');
-      }, 500);
-    });
-
-    // Smooth scroll pour les liens internes (si ajoutés plus tard)
-    this.setupInternalLinks();
-  }
-
-  setupInternalLinks() {
-    // Pour les liens internes dans la sidebar (ex: ancres)
-    this.sidebar.addEventListener('click', (e) => {
-      if (e.target.matches('a[href^="#"]')) {
-        e.preventDefault();
-        const targetId = e.target.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          const sidebarRect = this.sidebar.getBoundingClientRect();
-          const targetRect = targetElement.getBoundingClientRect();
-          const scrollTop = targetRect.top - sidebarRect.top + this.sidebar.scrollTop - 20;
-          
-          this.sidebar.scrollTo({
-            top: scrollTop,
-            behavior: 'smooth'
-          });
-        }
+    // Fermer avec la touche Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.mobileSidebar.classList.contains('active')) {
+        this.closeSidebar();
       }
     });
   }
 
-  // Publicités - défilement automatique
-  startAdsSlider() {
-    if (this.ads.length === 0) return;
+  loadInitialContent() {
+    // Précharger le contenu des articles
+    this.loadArticlesContent();
+  }
 
+  openSidebar(tab) {
+    // Mettre à jour les boutons actifs
+    this.tabButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-tab') === tab);
+    });
+
+    // Charger le contenu selon l'onglet
+    switch(tab) {
+      case 'articles':
+        this.loadArticlesContent();
+        this.sidebarTitle.textContent = 'Articles & Specials';
+        break;
+      case 'weather':
+        this.loadWeatherContent();
+        this.sidebarTitle.textContent = 'Weather';
+        break;
+      case 'notes':
+        this.loadNotesContent();
+        this.sidebarTitle.textContent = 'Shopping Notes';
+        break;
+    }
+
+    // Ouvrir la sidebar
+    this.mobileSidebar.classList.add('active');
+    this.backdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeSidebar() {
+    this.mobileSidebar.classList.remove('active');
+    this.backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Réinitialiser les boutons actifs
+    this.tabButtons.forEach(btn => btn.classList.remove('active'));
+  }
+
+  loadArticlesContent() {
+    const content = `
+      <div class="sidebar-section">
+        <h3>Article coming soon</h3>
+        <div class="ads-container">
+          <div class="ads-slider">
+            <img src="/images/pub_1.jpg" alt="Advertisement 1" class="ad-image active">
+            <img src="/images/pub_2.jpg" alt="Advertisement 2" class="ad-image">
+            <img src="/images/pub_3.jpg" alt="Advertisement 3" class="ad-image">
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h3>Special Offers</h3>
+        <div class="special-offer">
+          <h3>🔥 Flash Sale!</h3>
+          <p>Up to 50% OFF on selected items. Limited time offer!</p>
+        </div>
+        <div class="special-offer">
+          <h3>🎁 Free Shipping</h3>
+          <p>Free delivery on orders over $50. Shop now!</p>
+        </div>
+        <div class="special-offer">
+          <h3>⭐ New Arrivals</h3>
+          <p>Check out our latest smart home products!</p>
+        </div>
+      </div>
+    `;
+    
+    this.sidebarContent.innerHTML = content;
+    this.startMobileAdsSlider();
+  }
+
+  loadWeatherContent() {
+    const content = `
+      <div class="sidebar-section">
+        <h3>Weather</h3>
+        <div class="weather-widget">
+          <div class="weather-loading">Loading weather...</div>
+          <div class="weather-content" style="display: none;">
+            <div class="weather-icon">🌤️</div>
+            <div class="weather-temp">--°C</div>
+            <div class="weather-desc">--</div>
+            <div class="weather-location">--</div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    this.sidebarContent.innerHTML = content;
+    this.loadMobileWeather();
+  }
+
+  loadNotesContent() {
+    const content = `
+      <div class="sidebar-section">
+        <h3>Purchase notes</h3>
+        <div class="sticky-notes">
+          <textarea class="note-input" placeholder="Write your shopping list here..."></textarea>
+          <button class="save-note-btn">Save</button>
+          <div class="saved-notes"></div>
+        </div>
+      </div>
+    `;
+    
+    this.sidebarContent.innerHTML = content;
+    this.setupMobileNotes();
+  }
+
+  startMobileAdsSlider() {
+    const ads = this.sidebarContent.querySelectorAll('.ad-image');
+    if (ads.length === 0) return;
+
+    let currentAd = 0;
+    
     const rotateAd = () => {
-      // Cacher l'annonce actuelle
-      this.ads[this.currentAd].classList.remove('active');
-      this.ads[this.currentAd].classList.add('leaving');
+      ads[currentAd].classList.remove('active');
+      ads[currentAd].classList.add('leaving');
 
-      // Passer à l'annonce suivante
-      this.currentAd = (this.currentAd + 1) % this.ads.length;
+      currentAd = (currentAd + 1) % ads.length;
 
-      // Afficher la nouvelle annonce
       setTimeout(() => {
-        this.ads.forEach(ad => {
+        ads.forEach(ad => {
           ad.classList.remove('leaving');
           ad.classList.remove('active');
         });
-        this.ads[this.currentAd].classList.add('active');
+        ads[currentAd].classList.add('active');
       }, 800);
     };
 
-    // Démarrer le défilement et répéter toutes les 10 secondes
     setInterval(rotateAd, 10000);
   }
 
-  // Météo - Simulation (remplacez par Google Maps API)
-  async loadWeather() {
+  async loadMobileWeather() {
     try {
-      // Simulation de données météo
+      const weatherLoading = this.sidebarContent.querySelector('.weather-loading');
+      const weatherContent = this.sidebarContent.querySelector('.weather-content');
+
       setTimeout(() => {
-        this.weatherLoading.style.display = 'none';
-        this.weatherContent.style.display = 'block';
+        weatherLoading.style.display = 'none';
+        weatherContent.style.display = 'block';
         
-        // Données simulées - remplacez par l'API Google Maps
         const weatherData = {
           temp: '22°C',
           description: 'Partiellement nuageux',
@@ -123,120 +192,109 @@ class SidebarManager {
           icon: '🌤️'
         };
 
-        this.updateWeatherDisplay(weatherData);
+        this.updateMobileWeatherDisplay(weatherData);
       }, 2000);
 
     } catch (error) {
       console.error('Error loading weather:', error);
-      this.weatherLoading.textContent = 'Météo non disponible';
+      const weatherLoading = this.sidebarContent.querySelector('.weather-loading');
+      weatherLoading.textContent = 'Weather unavailable';
     }
   }
 
-  updateWeatherDisplay(data) {
-    document.querySelector('.weather-icon').textContent = data.icon;
-    document.querySelector('.weather-temp').textContent = data.temp;
-    document.querySelector('.weather-desc').textContent = data.description;
-    document.querySelector('.weather-location').textContent = data.location;
+  updateMobileWeatherDisplay(data) {
+    const weatherContent = this.sidebarContent.querySelector('.weather-content');
+    weatherContent.querySelector('.weather-icon').textContent = data.icon;
+    weatherContent.querySelector('.weather-temp').textContent = data.temp;
+    weatherContent.querySelector('.weather-desc').textContent = data.description;
+    weatherContent.querySelector('.weather-location').textContent = data.location;
   }
 
-  // Notes d'achat
-  setupNoteEvents() {
-    this.saveNoteBtn.addEventListener('click', () => {
-      this.saveNote();
-    });
+  setupMobileNotes() {
+    const noteInput = this.sidebarContent.querySelector('.note-input');
+    const saveNoteBtn = this.sidebarContent.querySelector('.save-note-btn');
+    const savedNotes = this.sidebarContent.querySelector('.saved-notes');
 
-    this.noteInput.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.key === 'Enter') {
-        this.saveNote();
-      }
-    });
-  }
+    const saveNote = () => {
+      const noteText = noteInput.value.trim();
+      if (!noteText) return;
 
-  saveNote() {
-    const noteText = this.noteInput.value.trim();
-    if (!noteText) return;
+      const notes = getLocalStorage('shopping-notes') || [];
+      const newNote = {
+        id: Date.now(),
+        text: noteText,
+        date: new Date().toLocaleString('fr-FR')
+      };
 
-    const notes = getLocalStorage('shopping-notes') || [];
-    const newNote = {
-      id: Date.now(),
-      text: noteText,
-      date: new Date().toLocaleString('fr-FR')
+      notes.unshift(newNote);
+      setLocalStorage('shopping-notes', notes);
+      
+      noteInput.value = '';
+      loadSavedNotes();
+      
+      // Feedback visuel
+      showSaveFeedback();
     };
 
-    notes.unshift(newNote); // Ajouter au début
-    setLocalStorage('shopping-notes', notes);
-    
-    this.noteInput.value = '';
-    this.loadSavedNotes();
-    
-    // Feedback visuel
-    this.showSaveFeedback();
-  }
-
-  showSaveFeedback() {
-    const originalText = this.saveNoteBtn.textContent;
-    this.saveNoteBtn.textContent = '✓ Saved!';
-    this.saveNoteBtn.style.background = '#45a049';
-    
-    setTimeout(() => {
-      this.saveNoteBtn.textContent = originalText;
-      this.saveNoteBtn.style.background = '';
-    }, 2000);
-  }
-
-  loadSavedNotes() {
-    const notes = getLocalStorage('shopping-notes') || [];
-    this.savedNotes.innerHTML = '';
-
-    if (notes.length === 0) {
-      this.savedNotes.innerHTML = '<p style="color: #666; font-style: italic; text-align: center; padding: 1rem;">No saved notes</p>';
-      return;
-    }
-
-    notes.forEach(note => {
-      const noteElement = document.createElement('div');
-      noteElement.className = 'note-item';
-      noteElement.innerHTML = `
-        <div>${note.text}</div>
-        <div class="note-date">${note.date}</div>
-        <button class="delete-note" data-id="${note.id}" title="Delete note">×</button>
-      `;
-      this.savedNotes.appendChild(noteElement);
-    });
-
-    // Ajouter les événements de suppression
-    this.savedNotes.querySelectorAll('.delete-note').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const noteId = parseInt(e.target.getAttribute('data-id'));
-        this.deleteNote(noteId);
-      });
-    });
-  }
-
-  deleteNote(noteId) {
-    let notes = getLocalStorage('shopping-notes') || [];
-    notes = notes.filter(note => note.id !== noteId);
-    setLocalStorage('shopping-notes', notes);
-    this.loadSavedNotes();
-  }
-
-  // Méthode utilitaire pour scroller vers une section
-  scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section && this.sidebar) {
-      const sectionRect = section.getBoundingClientRect();
-      const sidebarRect = this.sidebar.getBoundingClientRect();
-      const scrollTop = sectionRect.top - sidebarRect.top + this.sidebar.scrollTop - 20;
+    const showSaveFeedback = () => {
+      const originalText = saveNoteBtn.textContent;
+      saveNoteBtn.textContent = '✓ Saved!';
+      saveNoteBtn.style.background = '#45a049';
       
-      this.sidebar.scrollTo({
-        top: scrollTop,
-        behavior: 'smooth'
+      setTimeout(() => {
+        saveNoteBtn.textContent = originalText;
+        saveNoteBtn.style.background = '';
+      }, 2000);
+    };
+
+    const loadSavedNotes = () => {
+      const notes = getLocalStorage('shopping-notes') || [];
+      savedNotes.innerHTML = '';
+
+      if (notes.length === 0) {
+        savedNotes.innerHTML = '<p style="color: #666; font-style: italic; text-align: center; padding: 1rem;">No saved notes</p>';
+        return;
+      }
+
+      notes.forEach(note => {
+        const noteElement = document.createElement('div');
+        noteElement.className = 'note-item';
+        noteElement.innerHTML = `
+          <div>${note.text}</div>
+          <div class="note-date">${note.date}</div>
+          <button class="delete-note" data-id="${note.id}" title="Delete note">×</button>
+        `;
+        savedNotes.appendChild(noteElement);
       });
-    }
+
+      // Ajouter les événements de suppression
+      savedNotes.querySelectorAll('.delete-note').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const noteId = parseInt(e.target.getAttribute('data-id'));
+          deleteNote(noteId);
+        });
+      });
+    };
+
+    const deleteNote = (noteId) => {
+      let notes = getLocalStorage('shopping-notes') || [];
+      notes = notes.filter(note => note.id !== noteId);
+      setLocalStorage('shopping-notes', notes);
+      loadSavedNotes();
+    };
+
+    saveNoteBtn.addEventListener('click', saveNote);
+    noteInput.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'Enter') {
+        saveNote();
+      }
+    });
+
+    loadSavedNotes();
   }
 }
 
-// Initialiser la sidebar quand le DOM est chargé
+// Initialiser la sidebar mobile quand le DOM est chargé
 document.addEventListener('DOMContentLoaded', () => {
-  new SidebarManager();
+  new MobileSidebarManager();
 });

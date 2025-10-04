@@ -46,7 +46,7 @@ class MobileSidebar {
         
         // Met à jour le titre
         const titles = {
-            'articles': 'Upcoming articles',
+            'articles': 'Articles & Special Offers',
             'weather': 'Current weather', 
             'notes': 'Purchase notes'
         };
@@ -99,6 +99,7 @@ class MobileSidebar {
     getArticlesContent() {
         return `
             <div class="sidebar-section">
+                <h3>Article coming soon</h3>
                 <div class="ads-container">
                     <div class="ads-slider">
                         <img src="/images/pub_1.jpg" alt="Advertisement 1" class="ad-image active">
@@ -110,12 +111,29 @@ class MobileSidebar {
                     Discover our new products coming soon!
                 </p>
             </div>
+
+            <div class="sidebar-section">
+                <h3>Special Offers</h3>
+                <div class="special-offer">
+                    <h3>🔥 Flash Sale!</h3>
+                    <p>Up to 50% OFF on selected items. Limited time offer!</p>
+                </div>
+                <div class="special-offer">
+                    <h3>🎁 Free Shipping</h3>
+                    <p>Free delivery on orders over $50. Shop now!</p>
+                </div>
+                <div class="special-offer">
+                    <h3>⭐ New Arrivals</h3>
+                    <p>Check out our latest smart home products!</p>
+                </div>
+            </div>
         `;
     }
 
     getWeatherContent() {
         return `
             <div class="sidebar-section">
+                <h3>Weather</h3>
                 <div class="weather-widget">
                     <div class="weather-loading">Loading weather...</div>
                     <div class="weather-content" style="display: none;">
@@ -136,6 +154,7 @@ class MobileSidebar {
     getNotesContent() {
         return `
             <div class="sidebar-section">
+                <h3>Purchase notes</h3>
                 <div class="sticky-notes">
                     <textarea class="note-input" placeholder="Write your shopping list here..."></textarea>
                     <button class="save-note-btn">Save</button>

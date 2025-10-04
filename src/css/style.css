@@ -638,7 +638,6 @@ body {
   }
 }
 
-/* Animation pour le contenu */
 /* ===== SYSTEME D'ONGLETS MOBILE CORRIGÉ ===== */
 
 /* Desktop: cache complètement la sidebar mobile */
@@ -654,14 +653,14 @@ body {
   }
 }
 
-/* Mobile: activation du système d'onglets */
+/* Mobile: activation du système d'onglets - VERSION CORRIGÉE */
 @media (max-width: 768px) {
   /* Cache la sidebar normale */
   .sidebar {
     display: none !important;
   }
   
-  /* Container principal des onglets */
+  /* Container principal des onglets - PLUS PETIT ET DISCRET */
   .mobile-sidebar-tabs {
     position: fixed;
     left: 0;
@@ -670,49 +669,64 @@ body {
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 0 12px 12px 0;
-    box-shadow: 2px 2px 15px rgba(0,0,0,0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(76, 175, 80, 0.2);
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 0 6px 6px 0;
+    box-shadow: 1px 1px 6px rgba(0,0,0,0.06);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(76, 175, 80, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  /* Réduit encore plus sur les très petits écrans */
+  .mobile-sidebar-tabs.compact {
+    gap: 0.2rem;
+    padding: 0.2rem;
+    background: rgba(255, 255, 255, 0.7);
   }
   
-  /* Boutons onglets */
+  /* Boutons onglets - PLUS COMPACTS */
   .mobile-tab-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
-    padding: 0.75rem 0.5rem;
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
+    gap: 0.1rem;
+    padding: 0.4rem 0.25rem;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 60px;
+    transition: all 0.2s ease;
+    min-width: 40px;
     text-align: center;
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     font-weight: 500;
     color: #666;
   }
-  
+
   .mobile-tab-btn:hover {
     border-color: var(--primary);
-    transform: translateX(5px);
+    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.95);
   }
   
   .mobile-tab-btn.active {
     border-color: var(--primary);
     background: var(--primary);
     color: white;
-    transform: translateX(8px);
+    transform: translateX(3px);
+    box-shadow: 0 1px 3px rgba(76, 175, 80, 0.3);
   }
   
   .tab-icon {
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.1rem;
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-tab-btn:hover .tab-icon {
+    transform: scale(1.1);
   }
   
   /* Overlay de la sidebar mobile */
@@ -783,8 +797,36 @@ body {
   }
   
   .mobile-sidebar-overlay .ads-container {
-    min-height: 120px !important;
+    min-height: 100px !important;
     padding: 0.5rem !important;
+  }
+
+  /* Styles pour les offres spéciales dans la sidebar mobile */
+  .mobile-sidebar-overlay .special-offer {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(255, 152, 0, 0.3);
+  }
+
+  .mobile-sidebar-overlay .special-offer h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mobile-sidebar-overlay .special-offer p {
+    margin-bottom: 0;
+    opacity: 0.9;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
   }
   
   /* Ajustement du main content pour la sidebar mobile */
@@ -829,24 +871,62 @@ body {
   }
 }
 
-/* Pour les très petits écrans */
+/* Pour les très petits écrans - ENCORE PLUS COMPACT */
 @media (max-width: 480px) {
-  .mobile-sidebar-overlay {
-    width: 90%;
+  .mobile-sidebar-tabs {
+    gap: 0.15rem;
+    padding: 0.15rem;
+    background: rgba(255, 255, 255, 0.65);
   }
   
   .mobile-tab-btn {
-    min-width: 50px;
-    padding: 0.6rem 0.4rem;
-    font-size: 0.65rem;
+    min-width: 35px;
+    padding: 0.3rem 0.2rem;
+    font-size: 0.5rem;
   }
   
   .tab-icon {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
+  }
+  
+  .mobile-sidebar-overlay {
+    width: 90%;
+    padding: 1rem;
   }
   
   .mobile-sidebar-overlay .ads-slider {
     height: 120px !important;
+  }
+
+  .mobile-sidebar-overlay .special-offer {
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+  }
+
+  .mobile-sidebar-overlay .special-offer h3 {
+    font-size: 1rem;
+  }
+
+  .mobile-sidebar-overlay .special-offer p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Pour les écrans très étroits (orientation portrait) */
+@media (max-width: 360px) {
+  .mobile-sidebar-tabs {
+    transform: translateY(-50%) scale(0.9);
+    transform-origin: left center;
+  }
+  
+  .mobile-tab-btn {
+    min-width: 32px;
+    padding: 0.25rem 0.15rem;
+    font-size: 0.45rem;
+  }
+  
+  .tab-icon {
+    font-size: 0.7rem;
   }
 }
 
@@ -867,6 +947,23 @@ body {
       opacity: 1;
     }
   }
+}
+
+/* Effet de pulsation subtile pour attirer l'attention */
+@keyframes subtlePulse {
+  0%, 100% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.02); }
+}
+
+.mobile-sidebar-tabs:not(:hover) {
+  animation: subtlePulse 4s ease-in-out infinite;
+}
+
+/* Désactiver l'animation de pulsation quand on interagit */
+.mobile-sidebar-tabs:hover,
+.mobile-sidebar-tabs:has(.mobile-tab-btn:hover),
+.mobile-sidebar-tabs:has(.mobile-tab-btn.active) {
+  animation: none;
 }
 
 /* Contact Toggle Section Styles */
@@ -1185,7 +1282,6 @@ body {
 @media (max-width: 768px) {
   .contact-dropdown.active {
     padding: 1.5rem;
-    /* Toujours pas de max-height pour pousser le contenu */
     max-height: none;
     height: auto;
   }
@@ -2155,36 +2251,6 @@ footer {
 .ad-image.leaving {
   opacity: 0;
   transform: translateX(-100%);
-}
-
-/* special offre*/
-@media (max-width: 768px) {
-  .mobile-sidebar-overlay .special-offer {
-    display: block !important;
-    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-    color: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin: 1.5rem 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
-  }
-  
-  .mobile-sidebar-overlay .special-offer h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.4rem;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .mobile-sidebar-overlay .special-offer p {
-    margin-bottom: 0;
-    opacity: 0.9;
-    position: relative;
-    z-index: 1;
-  }
 }
 
 /* Haiti Weather Widget Styles */
