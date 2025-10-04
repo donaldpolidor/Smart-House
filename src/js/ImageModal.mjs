@@ -12,7 +12,7 @@ export default class ImageModal {
   }
 
   createModal() {
-    // Vérifier si la modal existe déjà
+    // Check if the modal already exists
     if (document.getElementById('imageModal')) {
       this.modal = document.getElementById('imageModal');
       this.modalImg = document.getElementById('modalImage');

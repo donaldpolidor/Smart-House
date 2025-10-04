@@ -7,19 +7,19 @@ class ProductCatalog {
     this.dataSource = new ProductData();
     this.currentCategory = 'kitchen';
     this.imageModal = new ImageModal();
-    this.productsData = []; // Stocker les données des produits
-    this.allProducts = []; // Stocker tous les produits pour la recherche
+    this.productsData = []; // Store product data
+    this.allProducts = []; // Store all products for search functionality
     this.isSearching = false;
     this.init();
   }
 
   async init() {
-    await this.loadAllProducts(); // Charger tous les produits pour la recherche
+    await this.loadAllProducts(); // Load all products for search
     await this.loadProducts('kitchen');
     this.setupEventListeners();
     updateCartCount();
     
-    // Activer les previews d'images
+    // Enable image previews
     setTimeout(() => {
       this.attachImagePreviews();
     }, 200);
@@ -46,13 +46,13 @@ class ProductCatalog {
 
     try {
       const products = await this.dataSource.getData(category);
-      this.productsData = products; // Sauvegarder les données
+      this.productsData = products; // Save data
       
       if (products.length === 0 && category !== 'kitchen') {
         this.displayComingSoon(category);
       } else {
         this.displayProducts(products);
-        // Réattacher les événements de preview après le chargement
+        // Reattach preview events after loading
         setTimeout(() => {
           this.attachImagePreviews();
         }, 100);
@@ -121,12 +121,12 @@ class ProductCatalog {
     this.setupAddToCartButtons();
   }
 
-  // NOUVELLE MÉTHODE : Recherche de produits
+  // NEW METHOD: Product search
   searchProducts(searchTerm) {
     const productsGrid = document.getElementById('products-grid');
     
     if (!searchTerm.trim()) {
-      // Si la recherche est vide, revenir aux produits de la catégorie actuelle
+      // If search is empty, return to current category products
       this.isSearching = false;
       this.loadProducts(this.currentCategory);
       return;
@@ -134,7 +134,7 @@ class ProductCatalog {
 
     this.isSearching = true;
     
-    // Filtrer les produits basé sur le terme de recherche
+    // Filter products based on search term
     const filteredProducts = this.allProducts.filter(product => 
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -144,10 +144,10 @@ class ProductCatalog {
     );
 
     if (filteredProducts.length > 0) {
-      // Afficher les produits trouvés
+      // Display found products
       this.displaySearchResults(filteredProducts, searchTerm);
     } else {
-      // Aucun produit trouvé
+      // No products found
       this.displayNoResults(searchTerm);
     }
   }
@@ -250,21 +250,21 @@ class ProductCatalog {
     this.loadProducts(this.currentCategory);
   }
 
-  // NOUVELLE MÉTHODE : Attacher les previews d'images
+  // NEW METHOD: Attach image previews
   attachImagePreviews() {
     const productImages = document.querySelectorAll('.product-image');
     
     productImages.forEach(img => {
-      // Supprimer les écouteurs existants pour éviter les doublons
+      // Remove existing listeners to avoid duplicates
       const newImg = img.cloneNode(true);
       img.parentNode.replaceChild(newImg, img);
       
-      // Trouver le produit correspondant
+      // Find corresponding product
       const productId = newImg.getAttribute('data-product-id');
       const product = this.allProducts.find(p => p.id === productId);
       
       if (product) {
-        // Ajouter les écouteurs d'événements
+        // Add event listeners
         newImg.addEventListener('click', () => {
           this.imageModal.openModal(newImg, product);
         });
@@ -276,7 +276,7 @@ class ProductCatalog {
           }
         });
         
-        // Style pour indiquer que c'est cliquable
+        // Style to indicate it's clickable
         newImg.style.cursor = 'zoom-in';
         newImg.style.transition = 'transform 0.2s ease';
         
@@ -398,17 +398,17 @@ class ProductCatalog {
       });
     });
 
-    // Événements de recherche
+    // Search events
     const searchInput = document.querySelector('.search-input');
     const searchBtn = document.querySelector('.search-btn');
 
-    // Recherche au clic sur le bouton
+    // Search on button click
     searchBtn.addEventListener('click', () => {
       const searchTerm = searchInput.value.trim();
       this.searchProducts(searchTerm);
     });
 
-    // Recherche avec la touche Enter
+    // Search with Enter key
     searchInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         const searchTerm = searchInput.value.trim();
@@ -416,21 +416,11 @@ class ProductCatalog {
       }
     });
 
-    // Recherche en temps réel (optionnel - décommentez si vous le voulez)
-    // searchInput.addEventListener('input', (e) => {
-    //   const searchTerm = e.target.value.trim();
-    //   if (searchTerm.length >= 2) {
-    //     this.searchProducts(searchTerm);
-    //   } else if (searchTerm.length === 0 && this.isSearching) {
-    //     this.clearSearch();
-    //   }
-    // });
-
     document.querySelector('.cart-section').addEventListener('click', () => {
       window.location.href = '/cart/index.html';
     });
 
-    // Navigation au clavier pour les images
+    // Keyboard navigation for images
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         const focusedElement = document.activeElement;

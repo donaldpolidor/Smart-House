@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SleepOutside | Checkout</title>
+    <title>SmartHome | Checkout</title>
     <link rel="stylesheet" href="/css/style.css" />
     <script src="/js/checkout.js" type="module"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
@@ -48,6 +48,12 @@
               <div class="form-group">
                 <label for="lname">Name *</label>
                 <input type="text" id="lname" name="lname" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required 
+                       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                       title="Please enter a valid email address">
               </div>
             </fieldset>
 
@@ -105,6 +111,30 @@
         </section>
       </div>
     </main>
+
+    <!-- Modal de confirmation -->
+    <div id="confirmation-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Confirm Your Purchase</h3>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="order-review">
+            <h4>Order Details</h4>
+            <div id="order-review-items"></div>
+            <div class="order-review-total">
+              <strong>Total: $<span id="review-total">0.00</span></strong>
+            </div>
+          </div>
+          <p>Are you sure you want to proceed with this purchase?</p>
+        </div>
+        <div class="modal-actions">
+          <button id="confirm-yes" class="btn-primary">Yes, Confirm Purchase</button>
+          <button id="confirm-no" class="btn-secondary">No, Cancel</button>
+        </div>
+      </div>
+    </div>
 
     <footer id="main-footer"></footer>
   </body>

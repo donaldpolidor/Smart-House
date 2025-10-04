@@ -84,10 +84,10 @@ class Cart {
       const newQuantity = currentQuantity + change;
       
       if (newQuantity <= 0) {
-        // Si la quantité devient 0 ou moins, supprimer l'article
+        // If the quantity becomes 0 or less, delete the item
         this.removeFromCart(productId);
       } else {
-        // Mettre à jour la quantité
+        // Update quantity
         this.cartItems[itemIndex].quantity = newQuantity;
         localStorage.setItem('so-cart', JSON.stringify(this.cartItems));
         this.displayCartItems();

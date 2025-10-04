@@ -38,6 +38,7 @@ export default class CheckoutProcess {
     this.shipping = 10 + (Math.max(0, itemCount - 1) * 2);
     this.orderTotal = Math.round((this.itemTotal + this.tax + this.shipping) * 100) / 100;
     this.displayOrderTotals();
+    return this.orderTotal;
   }
 
   displayOrderTotals() {
@@ -121,7 +122,8 @@ export default class CheckoutProcess {
       const orderInfo = {
         orderId: response.orderId,
         total: this.orderTotal.toFixed(2),
-        date: new Date().toLocaleDateString()
+        date: new Date().toLocaleDateString(),
+        email: formData.email
       };
       localStorage.setItem('lastOrder', JSON.stringify(orderInfo));
       localStorage.removeItem('so-cart');
