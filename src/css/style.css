@@ -2779,7 +2779,7 @@ footer {
 .cart-card__image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* CHANGÉ À CONTAIN POUR VOIR L'IMAGE ENTIÈRE */
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
@@ -2951,7 +2951,7 @@ footer {
   }
   
   .cart-card__image {
-    height: 200%;
+    height: 250px;
   }
 }
 
@@ -2970,7 +2970,7 @@ footer {
     gap: 1.5rem;
   }
   
-  .products h2 {
+    .products h2 {
     font-size: 1.2rem;
   }
   
@@ -2987,7 +2987,7 @@ footer {
   }
   
   .cart-card__image {
-    height: 200%;
+    height: 100%;
     width: 100%;
   }
 }
