@@ -73,8 +73,6 @@ class ProductCatalog {
 
     this.setupAddToCartButtons();
   }
-
-  // ... (le reste du code reste identique)
 }
 
 document.addEventListener('DOMContentLoaded', () => {

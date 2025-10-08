@@ -3,57 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Successful - SleepOutside</title>
+    <title>Order Confirmation - SmartHome</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/checkout.css">
+    <!-- Bibliothèque pour générer les PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="/js/success.js" type="module"></script>
+    <script src="/js/pdfGenerator.js" type="module"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
 </head>
 <body>
     <header class="main-header">
- <div class="header-container">
-  <div class="logo-section">
-    <img src="/images/logos/smarthome.png" alt="SmartHome Logo" class="logo" onerror="this.style.display='none'">
-    <a href="/index.html" class="logo-text">Smart <span class="highlight">HOME</span></a>
-  </div>
-  
-  <div class="search-section">
-    <div class="search-container">
-      <input type="text" class="search-input" placeholder="Search for a product...">
-      <button class="search-btn">
-        <span class="search-icon">🔍</span>
-      </button>
-    </div>
-  </div>
-  
-  <div class="cart-section">
-    <img src="/images/icon/cart.png" alt="Shopping Cart" class="cart-icon" onerror="this.style.display='none'">
-    <span class="cart-count">0</span>
-  </div>
-</div>
+        <!-- Header sera chargé par loadHeaderFooter() -->
     </header>
 
     <main class="divider">
         <div class="success-container">
-            <h1>Order Successful! 🎉</h1>
+            <h1>🎉 Order Confirmed!</h1>
+            
             <div class="success-message">
-                <p>Thank you for your purchase!</p>
-                <p>Your order has been processed successfully.</p>
-                
-                <div id="order-details" class="order-details">
-                    <p><strong>Order Number:</strong> <span id="order-id">Loading...</span></p>
-                    <p><strong>Order Date:</strong> <span id="order-date">Loading...</span></p>
-                    <p><strong>Total Amount:</strong> <span id="order-total">Loading...</span></p>
-                </div>
-                
-                <p>You will receive a confirmation email shortly.</p>
+                <h2>Thank you for your purchase!</h2>
+                <p>Your order has been successfully processed.</p>
             </div>
-            <div class="success-buttons">
-                <a href="/index.html" class="btn-primary">Return to Home</a>
+
+            <div class="order-details">
+                <h3>Order Summary</h3>
+                
+                <div class="order-info">
+                    <div class="info-item">
+                        <strong>Order ID:</strong>
+                        <span id="order-id">N/A</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Order Date:</strong>
+                        <span id="order-date">N/A</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Customer Name:</strong>
+                        <span id="customer-name">N/A</span>
+                    </div>
+                </div>
+
+                <div class="order-items">
+                    <h4>Items Ordered:</h4>
+                    <div id="order-items" class="items-list">
+                        <!-- Les articles seront ajoutés ici -->
+                    </div>
+                </div>
+
+                <div class="order-totals">
+                    <h4>Order Totals:</h4>
+                    <div class="total-line">
+                        <span>Subtotal:</span>
+                        <span id="order-subtotal">$0.00</span>
+                    </div>
+                    <div class="total-line">
+                        <span>Tax (6%):</span>
+                        <span id="order-tax">$0.00</span>
+                    </div>
+                    <div class="total-line">
+                        <span>Shipping:</span>
+                        <span id="order-shipping">$0.00</span>
+                    </div>
+                    <div class="total-line grand-total">
+                        <span>Total:</span>
+                        <span id="order-total">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="shipping-info">
+                    <h4>Shipping Address:</h4>
+                    <div id="shipping-address">
+                        <!-- L'adresse sera ajoutée ici -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-actions">
+                <button id="download-pdf" class="btn-primary">📄 Download Receipt (PDF)</button>
                 <a href="/index.html" class="btn-secondary">Continue Shopping</a>
+                <a href="/checkout/cart/index.html" class="btn-secondary">View Cart</a>
             </div>
         </div>
     </main>
 
-    <footer id="main-footer"></footer>
+    <footer id="main-footer">
+        <!-- Footer sera chargé par loadHeaderFooter() -->
+    </footer>
 </body>
 </html>

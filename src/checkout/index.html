@@ -5,31 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SmartHome | Checkout</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/checkout.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      emailjs.init("Z0IJnm4Z6YDaat71K");
+    </script>
     <script src="/js/checkout.js" type="module"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
   </head>
   <body>
     <header class="main-header">
-   <div class="header-container">
-  <div class="logo-section">
-    <img src="/images/logos/smarthome.png" alt="SmartHome Logo" class="logo" onerror="this.style.display='none'">
-    <a href="/index.html" class="logo-text">Smart <span class="highlight">HOME</span></a>
-  </div>
-  
-  <div class="search-section">
-    <div class="search-container">
-      <input type="text" class="search-input" placeholder="Search for a product...">
-      <button class="search-btn">
-        <span class="search-icon">🔍</span>
-      </button>
-    </div>
-  </div>
-  
-  <div class="cart-section">
-    <img src="/images/icon/cart.png" alt="Shopping Cart" class="cart-icon" onerror="this.style.display='none'">
-    <span class="cart-count">0</span>
-  </div>
-</div>
+      <div class="header-container">
+        <div class="logo-section">
+          <img src="/images/logos/smarthome.png" alt="SmartHome Logo" class="logo" onerror="this.style.display='none'">
+          <a href="/index.html" class="logo-text">Smart <span class="highlight">HOME</span></a>
+        </div>
+        
+        <div class="search-section">
+          <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search for a product...">
+            <button class="search-btn">
+              <span class="search-icon">🔍</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="cart-section">
+          <img src="/images/icon/cart.png" alt="Shopping Cart" class="cart-icon" onerror="this.style.display='none'">
+          <span class="cart-count">0</span>
+        </div>
+      </div>
     </header>
 
     <main class="divider">
@@ -50,11 +55,10 @@
                 <input type="text" id="lname" name="lname" required>
               </div>
               <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required 
-                       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                       title="Please enter a valid email address">
-              </div>
+  <label for="email">Email *</label>
+  <input type="email" id="email" name="email" required 
+         title="Please enter a valid email address">
+</div>
             </fieldset>
 
             <fieldset>
@@ -81,16 +85,24 @@
               <legend>Payment Information</legend>
               <div class="form-group">
                 <label for="cardNumber">Credit Card Number *</label>
-                <input type="text" id="cardNumber" name="cardNumber" required>
+                <input type="text" id="cardNumber" name="cardNumber" required 
+                       pattern="[0-9\s]{13,19}" 
+                       maxlength="19"
+                       placeholder="**** **** **** ****">
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="expiration">Exp. Date *</label>
-                  <input type="text" id="expiration" name="expiration" required placeholder="MM/YY">
+                  <input type="text" id="expiration" name="expiration" required placeholder="MM/YY"
+                         pattern="(0[1-9]|1[0-2])\/([0-9]{2})"
+                         title="Format: MM/YY">
                 </div>
                 <div class="form-group">
                   <label for="code">Security Code *</label>
-                  <input type="text" id="code" name="code" required>
+                  <input type="text" id="code" name="code" required 
+                         pattern="[0-9]{3,4}"
+                         maxlength="3"
+                         placeholder="***">
                 </div>
               </div>
             </fieldset>
@@ -100,15 +112,15 @@
         </section>
 
         <section class="order-summary">
-          <h2>Order summary</h2>
-          <div id="cart-items"></div>
-          <div class="order-totals">
-            <div class="total-line"><span>Subtotal:</span><span id="item-total">$0.00</span></div>
-            <div class="total-line"><span>Taxes (6%):</span><span id="tax">$0.00</span></div>
-            <div class="total-line"><span>Shipping Costs:</span><span id="shipping">$0.00</span></div>
-            <div class="total-line grand-total"><span>Total:</span><span id="order-total">$0.00</span></div>
-          </div>
-        </section>
+  <h2>Order summary</h2>
+  <div id="cart-items"></div>
+  <div class="order-totals">
+    <div class="total-line"><span>Subtotal:</span><span id="item-total">$0.00</span></div>
+    <div class="total-line"><span>Taxes (6%):</span><span id="tax">$0.00</span></div>
+    <div class="total-line"><span>Shipping Costs:</span><span id="shipping">$0.00</span></div>
+    <div class="total-line grand-total"><span>Total:</span><span id="order-total">$0.00</span></div>
+  </div>
+</section>
       </div>
     </main>
 

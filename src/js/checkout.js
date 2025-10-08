@@ -10,12 +10,253 @@ document.getElementById('zip')?.addEventListener('input', () => {
   checkout.calculateOrderTotal();
 });
 
+// Gestion du modal de confirmation
+function setupConfirmationModal() {
+  const modal = document.getElementById('confirmation-modal');
+  const closeBtn = document.querySelector('.close-modal');
+  const confirmNoBtn = document.getElementById('confirm-no');
+  
+  closeBtn?.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+  
+  confirmNoBtn?.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+  
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+}
+
+// Calculer les taxes et frais
+function calculateTaxesAndShipping(subtotal) {
+  const taxRate = 0.06; // 6%
+  const shippingCost = 10.00; // Frais de livraison fixes
+  
+  const tax = subtotal * taxRate;
+  const shipping = shippingCost;
+  const total = subtotal + tax + shipping;
+  
+  return {
+    subtotal: subtotal.toFixed(2),
+    tax: tax.toFixed(2),
+    shipping: shipping.toFixed(2),
+    total: total.toFixed(2)
+  };
+}
+
+// Afficher le modal de confirmation
+function showConfirmationModal(orderDetails) {
+  const modal = document.getElementById('confirmation-modal');
+  const reviewItems = document.getElementById('order-review-items');
+  const reviewTotal = document.getElementById('review-total');
+  
+  // Calculer le sous-total
+  const subtotal = checkout.list.reduce((sum, item) => {
+    const price = item.FinalPrice || item.Price || item.price || 0;
+    const quantity = item.Quantity || item.quantity || 1;
+    return sum + (price * quantity);
+  }, 0);
+  
+  // Calculer taxes et frais
+  const totals = calculateTaxesAndShipping(subtotal);
+  
+  // Afficher les articles du panier
+  let itemsHTML = '';
+  if (checkout.list && checkout.list.length > 0) {
+    checkout.list.forEach(item => {
+      const name = item.Name || item.name || 'Product';
+      const quantity = item.Quantity || item.quantity || 1;
+      const price = item.FinalPrice || item.Price || item.price || 0;
+      const total = (price * quantity).toFixed(2);
+      
+      itemsHTML += `
+        <div class="review-item">
+          <span class="review-item-name">${name}</span>
+          <span class="review-item-quantity">Qty: ${quantity}</span>
+          <span class="review-item-price">$${total}</span>
+        </div>
+      `;
+    });
+    
+    // Ajouter les détails des taxes et frais
+    itemsHTML += `
+      <div class="review-summary">
+        <div class="review-summary-line">
+          <span>Subtotal:</span>
+          <span>$${totals.subtotal}</span>
+        </div>
+        <div class="review-summary-line">
+          <span>Tax (6%):</span>
+          <span>$${totals.tax}</span>
+        </div>
+        <div class="review-summary-line">
+          <span>Shipping:</span>
+          <span>$${totals.shipping}</span>
+        </div>
+        <div class="review-summary-line grand-total">
+          <span><strong>Total:</strong></span>
+          <span><strong>$${totals.total}</strong></span>
+        </div>
+      </div>
+    `;
+  }
+  
+  reviewItems.innerHTML = itemsHTML;
+  reviewTotal.textContent = totals.total;
+  modal.style.display = 'block';
+  
+  setupConfirmYesButton(orderDetails, totals);
+}
+
+// Configurer le bouton de confirmation
+function setupConfirmYesButton(orderDetails, totals) {
+  const confirmYesBtn = document.getElementById('confirm-yes');
+  
+  confirmYesBtn.onclick = async () => {
+    const modal = document.getElementById('confirmation-modal');
+    const button = confirmYesBtn;
+    
+    button.disabled = true;
+    button.textContent = 'Processing payment...';
+    
+    try {
+      // Mettre à jour le total dans checkout avant le traitement
+      checkout.orderTotal = parseFloat(totals.total);
+      
+      const result = await checkout.checkout(orderDetails.formData);
+      
+      // Sauvegarder les données pour la page success
+      localStorage.setItem('lastOrder', JSON.stringify({
+        orderId: result.orderId,
+        total: totals.total,
+        subtotal: totals.subtotal,
+        tax: totals.tax,
+        shipping: totals.shipping,
+        date: new Date().toLocaleDateString(),
+        items: checkout.list,
+        customerName: orderDetails.customerName,
+        email: orderDetails.customerEmail,
+        shippingAddress: orderDetails.shippingAddress
+      }));
+      
+      localStorage.removeItem('so-cart');
+      
+      // Redirection vers la page de succès
+      window.location.href = '/checkout/success.html';
+      
+    } catch (error) {
+      console.error('Error:', error);
+      alertMessage('Error processing your order. Please try again.', true);
+      button.disabled = false;
+      button.textContent = 'Yes, Confirm Purchase';
+    }
+  };
+}
+
+// Mettre à jour l'affichage du panier
+function updateCartSummary() {
+  const subtotal = checkout.list.reduce((sum, item) => {
+    const price = item.FinalPrice || item.Price || item.price || 0;
+    const quantity = item.Quantity || item.quantity || 1;
+    return sum + (price * quantity);
+  }, 0);
+  
+  const totals = calculateTaxesAndShipping(subtotal);
+  
+  // Mettre à jour l'affichage
+  document.getElementById('item-total').textContent = `$${totals.subtotal}`;
+  document.getElementById('tax').textContent = `$${totals.tax}`;
+  document.getElementById('shipping').textContent = `$${totals.shipping}`;
+  document.getElementById('order-total').textContent = `$${totals.total}`;
+}
+
+// Script pour améliorer l'expérience utilisateur du formulaire
+document.addEventListener('DOMContentLoaded', function() {
+  // Formatage automatique du numéro de carte
+  const cardNumberInput = document.getElementById('cardNumber');
+  if (cardNumberInput) {
+    cardNumberInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      let formattedValue = '';
+      
+      for (let i = 0; i < value.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+          formattedValue += ' ';
+        }
+        formattedValue += value[i];
+      }
+      
+      e.target.value = formattedValue;
+    });
+  }
+  
+  // Formatage automatique de la date d'expiration
+  const expirationInput = document.getElementById('expiration');
+  if (expirationInput) {
+    expirationInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      
+      if (value.length >= 2) {
+        e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+      } else {
+        e.target.value = value;
+      }
+    });
+  }
+  
+  // Validation en temps réel
+  const form = document.getElementById('checkout-form');
+  if (form) {
+    const inputs = form.querySelectorAll('input[required]');
+    
+    inputs.forEach(input => {
+      input.addEventListener('blur', function() {
+        validateField(this);
+      });
+      
+      input.addEventListener('input', function() {
+        if (this.value) {
+          validateField(this);
+        }
+      });
+    });
+  }
+  
+  function validateField(field) {
+    if (field.validity.valid) {
+      field.classList.add('valid');
+      field.classList.remove('invalid');
+    } else {
+      field.classList.add('invalid');
+      field.classList.remove('valid');
+    }
+  }
+  
+  // Mettre à jour le résumé du panier au chargement
+  updateCartSummary();
+  
+  // Initialiser le modal
+  setupConfirmationModal();
+});
+
 function validatePaymentFields() {
   const cardNumber = document.getElementById('cardNumber').value;
   const expiration = document.getElementById('expiration').value;
   const securityCode = document.getElementById('code').value;
+  const email = document.getElementById('email').value;
 
-  if (!/^\d{16}$/.test(cardNumber.replace(/\s/g, ''))) {
+  // Vérification email simple
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    alertMessage('Please enter a valid email address', true);
+    return false;
+  }
+
+  const cleanCardNumber = cardNumber.replace(/\s/g, '');
+  if (!/^\d{16}$/.test(cleanCardNumber)) {
     alertMessage('Credit card number must be 16 digits', true);
     return false;
   }
@@ -34,18 +275,20 @@ function validatePaymentFields() {
     return false;
   }
 
-  if (securityCode !== '123') {
-    alertMessage('Invalid security code', true);
+  if (!/^\d{3,4}$/.test(securityCode)) {
+    alertMessage('Security code must be 3 or 4 digits', true);
     return false;
   }
 
   return true;
 }
 
+// Gestionnaire de soumission du formulaire principal
 document.getElementById('checkout-form')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const form = e.target;
+  const formData = new FormData(form);
   
   if (!form.checkValidity()) {
     form.reportValidity();
@@ -61,25 +304,17 @@ document.getElementById('checkout-form')?.addEventListener('submit', async (e) =
     return;
   }
 
-  const button = form.querySelector('button[type="submit"]');
-  button.disabled = true;
-  button.textContent = 'Processing...';
+  const orderDetails = {
+    customerName: `${formData.get('fname')} ${formData.get('lname')}`,
+    customerEmail: formData.get('email'),
+    shippingAddress: {
+      street: formData.get('street'),
+      city: formData.get('city'),
+      state: formData.get('state'),
+      zip: formData.get('zip')
+    },
+    formData: form
+  };
 
-  try {
-    const result = await checkout.checkout(form);
-    
-    localStorage.setItem('lastOrder', JSON.stringify({
-      orderId: result.orderId,
-      total: checkout.orderTotal.toFixed(2),
-      date: new Date().toLocaleDateString()
-    }));
-    
-    localStorage.removeItem('so-cart');
-    window.location.href = '/checkout/success.html';
-    
-  } catch (error) {
-    alertMessage('Error processing your order. Please try again.', true);
-    button.disabled = false;
-    button.textContent = 'Payment';
-  }
+  showConfirmationModal(orderDetails);
 });
