@@ -10,7 +10,7 @@ document.getElementById('zip')?.addEventListener('input', () => {
   checkout.calculateOrderTotal();
 });
 
-// Gestion du modal de confirmation
+// Confirmation modal management
 function setupConfirmationModal() {
   const modal = document.getElementById('confirmation-modal');
   const closeBtn = document.querySelector('.close-modal');
@@ -31,10 +31,10 @@ function setupConfirmationModal() {
   });
 }
 
-// Calculer les taxes et frais
+// Calculate taxes and fees
 function calculateTaxesAndShipping(subtotal) {
   const taxRate = 0.06; // 6%
-  const shippingCost = 10.00; // Frais de livraison fixes
+  const shippingCost = 10.00; // Fixed shipping costs
   
   const tax = subtotal * taxRate;
   const shipping = shippingCost;
@@ -48,23 +48,23 @@ function calculateTaxesAndShipping(subtotal) {
   };
 }
 
-// Afficher le modal de confirmation
+// Display the confirmation modal
 function showConfirmationModal(orderDetails) {
   const modal = document.getElementById('confirmation-modal');
   const reviewItems = document.getElementById('order-review-items');
   const reviewTotal = document.getElementById('review-total');
   
-  // Calculer le sous-total
+  // Calculate subtotal
   const subtotal = checkout.list.reduce((sum, item) => {
     const price = item.FinalPrice || item.Price || item.price || 0;
     const quantity = item.Quantity || item.quantity || 1;
     return sum + (price * quantity);
   }, 0);
   
-  // Calculer taxes et frais
+  // Calculate taxes and fees
   const totals = calculateTaxesAndShipping(subtotal);
   
-  // Afficher les articles du panier
+  // Display items in cart
   let itemsHTML = '';
   if (checkout.list && checkout.list.length > 0) {
     checkout.list.forEach(item => {
@@ -82,7 +82,7 @@ function showConfirmationModal(orderDetails) {
       `;
     });
     
-    // Ajouter les détails des taxes et frais
+    // Add details of taxes and fees
     itemsHTML += `
       <div class="review-summary">
         <div class="review-summary-line">
@@ -112,7 +112,7 @@ function showConfirmationModal(orderDetails) {
   setupConfirmYesButton(orderDetails, totals);
 }
 
-// Configurer le bouton de confirmation
+// Configure the confirmation button
 function setupConfirmYesButton(orderDetails, totals) {
   const confirmYesBtn = document.getElementById('confirm-yes');
   
@@ -124,12 +124,12 @@ function setupConfirmYesButton(orderDetails, totals) {
     button.textContent = 'Processing payment...';
     
     try {
-      // Mettre à jour le total dans checkout avant le traitement
+      // Update the total in checkout before processing
       checkout.orderTotal = parseFloat(totals.total);
       
       const result = await checkout.checkout(orderDetails.formData);
       
-      // Sauvegarder les données pour la page success
+      // Save data for the success page
       localStorage.setItem('lastOrder', JSON.stringify({
         orderId: result.orderId,
         total: totals.total,
@@ -145,7 +145,7 @@ function setupConfirmYesButton(orderDetails, totals) {
       
       localStorage.removeItem('so-cart');
       
-      // Redirection vers la page de succès
+      // Redirect to the success page
       window.location.href = '/checkout/success.html';
       
     } catch (error) {
@@ -157,7 +157,7 @@ function setupConfirmYesButton(orderDetails, totals) {
   };
 }
 
-// Mettre à jour l'affichage du panier
+// Update the shopping cart display
 function updateCartSummary() {
   const subtotal = checkout.list.reduce((sum, item) => {
     const price = item.FinalPrice || item.Price || item.price || 0;
@@ -167,16 +167,16 @@ function updateCartSummary() {
   
   const totals = calculateTaxesAndShipping(subtotal);
   
-  // Mettre à jour l'affichage
+  // Update display
   document.getElementById('item-total').textContent = `$${totals.subtotal}`;
   document.getElementById('tax').textContent = `$${totals.tax}`;
   document.getElementById('shipping').textContent = `$${totals.shipping}`;
   document.getElementById('order-total').textContent = `$${totals.total}`;
 }
 
-// Script pour améliorer l'expérience utilisateur du formulaire
+// Script to improve the user experience of the form
 document.addEventListener('DOMContentLoaded', function() {
-  // Formatage automatique du numéro de carte
+  // Automatic formatting of the card number
   const cardNumberInput = document.getElementById('cardNumber');
   if (cardNumberInput) {
     cardNumberInput.addEventListener('input', function(e) {
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Formatage automatique de la date d'expiration
+  // Automatic formatting of the expiration date
   const expirationInput = document.getElementById('expiration');
   if (expirationInput) {
     expirationInput.addEventListener('input', function(e) {
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Validation en temps réel
+  // Real-time validation
   const form = document.getElementById('checkout-form');
   if (form) {
     const inputs = form.querySelectorAll('input[required]');
@@ -236,10 +236,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Mettre à jour le résumé du panier au chargement
+  // Update the shopping cart summary when loading
   updateCartSummary();
   
-  // Initialiser le modal
+  // Initialize the modal
   setupConfirmationModal();
 });
 
@@ -249,7 +249,7 @@ function validatePaymentFields() {
   const securityCode = document.getElementById('code').value;
   const email = document.getElementById('email').value;
 
-  // Vérification email simple
+  // Simple email verification
   if (!email || !email.includes('@') || !email.includes('.')) {
     alertMessage('Please enter a valid email address', true);
     return false;
@@ -283,7 +283,7 @@ function validatePaymentFields() {
   return true;
 }
 
-// Gestionnaire de soumission du formulaire principal
+// Main form submission handler
 document.getElementById('checkout-form')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   

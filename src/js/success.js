@@ -11,7 +11,7 @@ function displayOrderDetails() {
   const lastOrder = JSON.parse(localStorage.getItem('lastOrder'));
   
   if (lastOrder) {
-    // Afficher les détails de la commande
+    // Show order details
     document.getElementById('order-id').textContent = lastOrder.orderId || 'N/A';
     document.getElementById('order-date').textContent = lastOrder.date || new Date().toLocaleDateString();
     document.getElementById('order-total').textContent = `$${lastOrder.total || '0.00'}`;
@@ -20,7 +20,7 @@ function displayOrderDetails() {
     document.getElementById('order-shipping').textContent = `$${lastOrder.shipping || '0.00'}`;
     document.getElementById('customer-name').textContent = lastOrder.customerName || 'Customer';
     
-    // Afficher les articles
+    // Display articles
     const itemsContainer = document.getElementById('order-items');
     if (lastOrder.items && lastOrder.items.length > 0) {
       itemsContainer.innerHTML = lastOrder.items.map(item => {
@@ -41,7 +41,7 @@ function displayOrderDetails() {
       itemsContainer.innerHTML = '<div class="order-item">No items found</div>';
     }
     
-    // Afficher l'adresse de livraison
+    // Display the delivery address
     const addressContainer = document.getElementById('shipping-address');
     if (lastOrder.shippingAddress) {
       addressContainer.innerHTML = `
@@ -50,7 +50,7 @@ function displayOrderDetails() {
       `;
     }
   } else {
-    // Aucune commande trouvée
+    // No orders found
     document.getElementById('order-id').textContent = 'N/A';
     document.getElementById('order-date').textContent = new Date().toLocaleDateString();
     document.getElementById('order-total').textContent = '$0.00';

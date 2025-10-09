@@ -1,4 +1,3 @@
-// pdfGenerator.js - Gestion de la génération de PDF
 function generatePDF() {
   const lastOrder = JSON.parse(localStorage.getItem('lastOrder'));
   
@@ -7,37 +6,29 @@ function generatePDF() {
     return;
   }
 
-  // Créer le contenu HTML pour le PDF
   const pdfContent = createPDFContent(lastOrder);
   
-  // Options pour html2pdf - format amélioré avec plus d'espace
   const options = {
-    margin: [10, 15, 10, 15], // [top, left, bottom, right] - plus d'espace
+    margin: [10, 15, 10, 15],
     filename: `order-${lastOrder.orderId || 'receipt'}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { 
       scale: 2,
       useCORS: true,
       logging: false,
-      scrollY: 0 // Important pour éviter le décalage
+      scrollY: 0
     },
     jsPDF: { 
       unit: 'mm', 
       format: 'a4', 
       orientation: 'portrait' 
-    },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    }
   };
 
-  // Générer le PDF
   html2pdf().set(options).from(pdfContent).save();
 }
 
 function createPDFContent(order) {
-  // Calculer la hauteur nécessaire pour les articles
-  const itemsCount = order.items ? order.items.length : 0;
-  const needsCompactView = itemsCount > 8; // Si plus de 8 articles, vue compacte
-
   return `
     <!DOCTYPE html>
     <html>
@@ -52,151 +43,134 @@ function createPDFContent(order) {
         body { 
           font-family: 'Arial', sans-serif; 
           color: #333;
-          line-height: 1.3;
-          padding: 5px;
-          margin: 0;
+          line-height: 1.4;
+          padding: 10px;
           background: white;
         }
         .container {
           width: 100%;
           max-width: 100%;
-          margin: 0 auto;
         }
         .header { 
           text-align: center; 
           border-bottom: 3px solid #4CAF50; 
-          padding-bottom: 10px; 
-          margin-bottom: 15px;
+          padding-bottom: 15px; 
+          margin-bottom: 20px;
         }
         .header h1 { 
           color: #4CAF50; 
-          margin: 3px 0;
-          font-size: 22px;
+          margin: 5px 0;
+          font-size: 24px;
         }
         .header h2 { 
           color: #666;
-          margin: 3px 0;
+          margin: 5px 0;
           font-size: 16px;
           font-weight: normal;
         }
         .section { 
-          margin-bottom: 12px; 
+          margin-bottom: 15px; 
         }
         .section h3 { 
           color: #4CAF50; 
-          border-bottom: 1px solid #ddd; 
-          padding-bottom: 4px; 
-          margin-bottom: 8px;
-          font-size: 14px;
+          border-bottom: 2px solid #4CAF50; 
+          padding-bottom: 5px; 
+          margin-bottom: 10px;
+          font-size: 16px;
         }
         .order-info-grid { 
           display: grid; 
           grid-template-columns: 1fr 1fr; 
-          gap: 6px; 
-          margin-bottom: 10px;
+          gap: 10px; 
+          margin-bottom: 15px;
         }
         .info-item { 
-          margin-bottom: 4px; 
-          font-size: 10px;
+          margin-bottom: 5px; 
+          font-size: 12px;
         }
         .info-item strong { 
           display: inline-block; 
-          width: 90px; 
+          width: 100px; 
           color: #555;
         }
+        
+        /* TABLEAU SIMPLIFIÉ */
         .items-table { 
-          width: 100%; 
+          width: 100% !important; 
           border-collapse: collapse; 
-          margin: 8px 0; 
-          font-size: ${needsCompactView ? '9px' : '10px'};
-          page-break-inside: avoid;
+          margin: 10px 0; 
+          font-size: 11px;
         }
         .items-table th { 
           background: #4CAF50; 
           color: white; 
-          padding: 6px 4px; 
+          padding: 6px 3px; 
           text-align: left; 
           font-weight: bold;
-          font-size: ${needsCompactView ? '9px' : '10px'};
         }
         .items-table td { 
-          padding: 4px; 
+          padding: 5px 3px; 
           border-bottom: 1px solid #ddd; 
-          vertical-align: top;
         }
         .items-table tr:nth-child(even) {
           background-color: #f9f9f9;
         }
+        
         .product-name {
-          max-width: 120px;
+          max-width: 150px;
           word-wrap: break-word;
         }
+        
         .totals-container { 
-          margin-top: 12px; 
-          text-align: right;
-          border-top: 2px solid #4CAF50;
-          padding-top: 8px;
+          width: 60%;
+          margin: 15px auto 0 auto;
+          text-align: center;
+          border-top: 3px solid #4CAF50;
+          padding-top: 15px;
         }
         .total-line { 
-          margin: 3px 0; 
-          font-size: 11px;
+          display: flex;
+          justify-content: space-between;
+          margin: 8px 0; 
+          font-size: 14px;
+          padding: 0 10px;
         }
         .grand-total { 
-          font-size: 12px; 
+          font-size: 16px; 
           font-weight: bold; 
-          border-top: 1px solid #4CAF50; 
-          padding-top: 6px; 
-          margin-top: 6px; 
+          border-top: 2px solid #4CAF50; 
+          padding-top: 10px; 
+          margin-top: 10px; 
         }
+        
+        .amount {
+          font-weight: bold;
+        }
+        
         .address-section {
           background: #f8f9fa;
-          padding: 8px;
-          border-radius: 4px;
-          margin: 8px 0;
-          font-size: 10px;
+          padding: 10px;
+          border-radius: 5px;
+          margin: 10px 0;
+          font-size: 12px;
         }
         .address-section p {
-          margin: 2px 0;
+          margin: 3px 0;
         }
         .footer { 
           text-align: center; 
-          margin-top: 15px; 
+          margin-top: 20px; 
           color: #666; 
-          font-size: 9px;
+          font-size: 10px;
           border-top: 1px solid #ddd;
-          padding-top: 8px;
+          padding-top: 10px;
         }
         .thank-you {
           text-align: center;
-          margin: 10px 0;
+          margin: 15px 0;
           font-style: italic;
           color: #4CAF50;
-          font-size: 11px;
-        }
-        
-        /* Styles pour éviter les coupures */
-        .no-break {
-          page-break-inside: avoid;
-          break-inside: avoid;
-        }
-        
-        .keep-together {
-          page-break-inside: avoid;
-        }
-
-        /* Assurer que le contenu ne dépasse pas */
-        @media print {
-          body {
-            padding: 0;
-            margin: 0;
-          }
-          .container {
-            max-width: 100%;
-            margin: 0;
-          }
-          .items-table {
-            font-size: 9px !important;
-          }
+          font-size: 14px;
         }
       </style>
     </head>
@@ -207,7 +181,7 @@ function createPDFContent(order) {
           <h2>Order Confirmation Receipt</h2>
         </div>
         
-        <div class="section no-break">
+        <div class="section">
           <h3>Order Information</h3>
           <div class="order-info-grid">
             <div class="info-item"><strong>Order ID:</strong> ${order.orderId || 'N/A'}</div>
@@ -217,7 +191,7 @@ function createPDFContent(order) {
           </div>
         </div>
         
-        <div class="section no-break">
+        <div class="section">
           <h3>Shipping Address</h3>
           <div class="address-section">
             <p><strong>Address:</strong> ${order.shippingAddress?.street || 'N/A'}</p>
@@ -226,15 +200,15 @@ function createPDFContent(order) {
           </div>
         </div>
         
-        <div class="section keep-together">
+        <div class="section">
           <h3>Order Items</h3>
           <table class="items-table">
             <thead>
               <tr>
-                <th style="width: 50%">Product Name</th>
-                <th style="width: 15%">Qty</th>
-                <th style="width: 20%">Unit Price</th>
-                <th style="width: 15%">Total</th>
+                <th>Product Name</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tbody>
@@ -244,15 +218,14 @@ function createPDFContent(order) {
                 const price = (item.FinalPrice || item.Price || item.price || 0).toFixed(2);
                 const total = (price * quantity).toFixed(2);
                 
-                // Nom du produit adaptatif
-                const displayName = name.length > 40 ? name.substring(0, 40) + '...' : name;
+                const displayName = name.length > 30 ? name.substring(0, 30) + '...' : name;
                 
                 return `
                   <tr>
                     <td class="product-name">${displayName}</td>
                     <td>${quantity}</td>
-                    <td>$${price}</td>
-                    <td>$${total}</td>
+                    <td class="amount">$${price}</td>
+                    <td class="amount">$${total}</td>
                   </tr>
                 `;
               }).join('') : '<tr><td colspan="4" style="text-align: center;">No items in order</td></tr>'}
@@ -260,13 +233,25 @@ function createPDFContent(order) {
           </table>
         </div>
         
-        <div class="section no-break">
+        <div class="section">
           <h3>Order Summary</h3>
           <div class="totals-container">
-            <div class="total-line"><strong>Subtotal:</strong> $${order.subtotal || '0.00'}</div>
-            <div class="total-line"><strong>Tax (6%):</strong> $${order.tax || '0.00'}</div>
-            <div class="total-line"><strong>Shipping:</strong> $${order.shipping || '0.00'}</div>
-            <div class="total-line grand-total"><strong>Total Amount:</strong> $${order.total || '0.00'}</div>
+            <div class="total-line">
+              <span><strong>Subtotal:</strong></span>
+              <span class="amount">$${order.subtotal || '0.00'}</span>
+            </div>
+            <div class="total-line">
+              <span><strong>Tax (6%):</strong></span>
+              <span class="amount">$${order.tax || '0.00'}</span>
+            </div>
+            <div class="total-line">
+              <span><strong>Shipping:</strong></span>
+              <span class="amount">$${order.shipping || '0.00'}</span>
+            </div>
+            <div class="total-line grand-total">
+              <span><strong>Total Amount:</strong></span>
+              <span class="amount">$${order.total || '0.00'}</span>
+            </div>
           </div>
         </div>
         
@@ -285,5 +270,4 @@ function createPDFContent(order) {
   `;
 }
 
-// Exporter les fonctions
 export { generatePDF, createPDFContent };

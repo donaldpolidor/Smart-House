@@ -11,7 +11,7 @@ export default class ProductData {
 
   async loadCategoryData(category) {
     try {
-      // Chemins absolus pour Netlify
+      // Absolute paths for Netlify
       const paths = [
         `/json/${category}.json`,
         `./json/${category}.json`

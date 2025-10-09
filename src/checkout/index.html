@@ -6,10 +6,6 @@
     <title>SmartHome | Checkout</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/checkout.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-      emailjs.init("Z0IJnm4Z6YDaat71K");
-    </script>
     <script src="/js/checkout.js" type="module"></script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
   </head>
@@ -30,7 +26,7 @@
           </div>
         </div>
         
-        <div class="cart-section">
+        <div class="cart-section" onclick="window.location.href='/cart/index.html'">
           <img src="/images/icon/cart.png" alt="Shopping Cart" class="cart-icon" onerror="this.style.display='none'">
           <span class="cart-count">0</span>
         </div>
@@ -55,10 +51,10 @@
                 <input type="text" id="lname" name="lname" required>
               </div>
               <div class="form-group">
-  <label for="email">Email *</label>
-  <input type="email" id="email" name="email" required 
-         title="Please enter a valid email address">
-</div>
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required 
+                       title="Please enter a valid email address">
+              </div>
             </fieldset>
 
             <fieldset>
@@ -112,19 +108,19 @@
         </section>
 
         <section class="order-summary">
-  <h2>Order summary</h2>
-  <div id="cart-items"></div>
-  <div class="order-totals">
-    <div class="total-line"><span>Subtotal:</span><span id="item-total">$0.00</span></div>
-    <div class="total-line"><span>Taxes (6%):</span><span id="tax">$0.00</span></div>
-    <div class="total-line"><span>Shipping Costs:</span><span id="shipping">$0.00</span></div>
-    <div class="total-line grand-total"><span>Total:</span><span id="order-total">$0.00</span></div>
-  </div>
-</section>
+          <h2>Order summary</h2>
+          <div id="cart-items"></div>
+          <div class="order-totals">
+            <div class="total-line"><span>Subtotal:</span><span id="item-total">$0.00</span></div>
+            <div class="total-line"><span>Taxes (6%):</span><span id="tax">$0.00</span></div>
+            <div class="total-line"><span>Shipping Costs:</span><span id="shipping">$0.00</span></div>
+            <div class="total-line grand-total"><span>Total:</span><span id="order-total">$0.00</span></div>
+          </div>
+        </section>
       </div>
     </main>
 
-    <!-- Modal de confirmation -->
+    <!-- Confirmation modal -->
     <div id="confirmation-modal" class="modal">
       <div class="modal-content">
         <div class="modal-header">

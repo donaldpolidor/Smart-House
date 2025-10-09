@@ -15,7 +15,7 @@ class ProductCatalog {
     this.setupEventListeners();
     updateCartCount();
     
-    // Activer les previews d'images
+    // Enable image previews
     this.imageModal.attachToProductImages();
   }
 
@@ -30,7 +30,7 @@ class ProductCatalog {
         this.displayComingSoon(category);
       } else {
         this.displayProducts(products);
-        // Réattacher les événements de preview après le chargement
+        // Reattach preview events after loading
         setTimeout(() => {
           this.imageModal.attachToProductImages();
         }, 100);

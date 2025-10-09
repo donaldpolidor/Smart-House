@@ -39,7 +39,6 @@ class Cart {
           <p class="cart-card__description">${item.description || ''}</p>
           <p class="cart-card__price">$${(item.price || 0).toFixed(2)} each</p>
           
-          <!-- Contrôle de quantité -->
           <div class="quantity-controls">
             <button class="quantity-btn decrease" data-id="${item.id}">-</button>
             <span class="quantity-display">${item.quantity || 1}</span>
@@ -84,10 +83,8 @@ class Cart {
       const newQuantity = currentQuantity + change;
       
       if (newQuantity <= 0) {
-        // If the quantity becomes 0 or less, delete the item
         this.removeFromCart(productId);
       } else {
-        // Update quantity
         this.cartItems[itemIndex].quantity = newQuantity;
         localStorage.setItem('so-cart', JSON.stringify(this.cartItems));
         this.displayCartItems();
@@ -113,12 +110,31 @@ class Cart {
     updateCartCount();
   }
 
+  calculateTaxesAndShipping(subtotal) {
+    const taxRate = 0.06; 
+    const shippingCost = 10.00; 
+    
+    const tax = subtotal * taxRate;
+    const shipping = shippingCost;
+    const total = subtotal + tax + shipping;
+    
+    return {
+      subtotal: subtotal.toFixed(2),
+      tax: tax.toFixed(2),
+      shipping: shipping.toFixed(2),
+      total: total.toFixed(2)
+    };
+  }
+
+  // CORRECTION: Synchronized with checkout.js
   updateCartTotal() {
-    const total = this.cartItems.reduce((sum, item) => {
+    const subtotal = this.cartItems.reduce((sum, item) => {
       return sum + ((item.price || 0) * (item.quantity || 1));
     }, 0);
     
-    // Optionnel: Afficher le total général du panier
+    // Use the SAME calculations
+    const totals = this.calculateTaxesAndShipping(subtotal);
+    
     const cartActions = document.querySelector('.cart-actions');
     if (cartActions && this.cartItems.length > 0) {
       const existingTotal = document.querySelector('.cart-total');
@@ -131,9 +147,22 @@ class Cart {
       totalElement.innerHTML = `
         <div class="total-summary">
           <h3>Cart Summary</h3>
-          <p>Subtotal: $${total.toFixed(2)}</p>
-          <p>Shipping: $0.00</p>
-          <p class="grand-total">Total: $${total.toFixed(2)}</p>
+          <div class="total-line">
+            <span>Subtotal:</span>
+            <span>$${totals.subtotal}</span>
+          </div>
+          <div class="total-line">
+            <span>Taxes (6%):</span>
+            <span>$${totals.tax}</span>
+          </div>
+          <div class="total-line">
+            <span>Shipping Costs:</span>
+            <span>$${totals.shipping}</span>
+          </div>
+          <div class="total-line grand-total">
+            <span>Total:</span>
+            <span>$${totals.total}</span>
+          </div>
         </div>
       `;
       cartActions.parentNode.insertBefore(totalElement, cartActions);

@@ -1,4 +1,4 @@
-// mobile-sidebar.js - Gestion des onglets sidebar mobile
+// mobile-sidebar.js - Gestion des onglets de la barre latérale mobile
 class MobileSidebar {
     constructor() {
         this.tabButtons = document.querySelectorAll('.mobile-tab-btn');
@@ -14,7 +14,7 @@ class MobileSidebar {
     }
 
     init() {
-        // Événements des boutons onglets
+        // Tab button events
         this.tabButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const tab = e.currentTarget.dataset.tab;
@@ -22,18 +22,18 @@ class MobileSidebar {
             });
         });
 
-        // Fermeture
+        // Closing
         this.closeBtn.addEventListener('click', () => this.closeSidebar());
         this.backdrop.addEventListener('click', () => this.closeSidebar());
 
-        // Fermeture avec Escape
+        // Close with Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.sidebar.classList.contains('active')) {
                 this.closeSidebar();
             }
         });
 
-        // Écoute les mises à jour de la météo
+        // Listen to weather updates
         document.addEventListener('weatherUpdated', (e) => {
             if (this.currentTab === 'weather') {
                 this.updateMobileWeather(e.detail);
@@ -44,7 +44,7 @@ class MobileSidebar {
     openTab(tab) {
         this.currentTab = tab;
         
-        // Met à jour le titre
+        // Updates the title
         const titles = {
             'articles': 'Articles & Special Offers',
             'weather': 'Current weather', 
@@ -52,20 +52,20 @@ class MobileSidebar {
         };
         this.sidebarTitle.textContent = titles[tab] || 'Sidebar';
         
-        // Injecte le contenu
+        // Injects the content
         this.injectContent(tab);
         
-        // Ouvre la sidebar
+        // Opens the sidebar
         this.sidebar.classList.add('active');
         this.backdrop.classList.add('active');
         this.mainContent.classList.add('sidebar-open');
         
-        // Animation des boutons
+        // Button animation
         this.tabButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.tab === tab);
         });
 
-        // Charge la météo si nécessaire
+        // Load the weather if necessary
         if (tab === 'weather') {
             this.loadWeatherData();
         }
@@ -88,7 +88,7 @@ class MobileSidebar {
         
         this.sidebarContent.innerHTML = content;
         
-        // Réinitialise les fonctionnalités si nécessaire
+        // Resets features if necessary
         if (tab === 'notes') {
             this.initNotesFunctionality();
         } else if (tab === 'articles') {
@@ -179,12 +179,12 @@ class MobileSidebar {
     }
 
     loadWeatherData() {
-        // Essaie de récupérer les données météo existantes
+        // Attempt to retrieve existing weather data
         const existingWeather = this.getExistingWeatherData();
         if (existingWeather) {
             this.updateMobileWeather(existingWeather);
         } else {
-            // Simule un chargement si pas de données disponibles
+            // Simulates loading if no data is available
             setTimeout(() => {
                 this.updateMobileWeather({
                     temperature: 28,
@@ -197,7 +197,7 @@ class MobileSidebar {
     }
 
     getExistingWeatherData() {
-        // Essaie de récupérer les données du widget météo principal
+        // Attempt to retrieve data from the main weather widget
         const mainWeatherWidget = document.querySelector('.weather-widget');
         if (mainWeatherWidget) {
             const tempElement = mainWeatherWidget.querySelector('.weather-temp');
@@ -255,7 +255,7 @@ class MobileSidebar {
                 this.saveNote(noteInput, savedNotes);
             });
             
-            // Entrée pour sauvegarder
+            // Input to save
             noteInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && e.ctrlKey) {
                     this.saveNote(noteInput, savedNotes);
@@ -263,7 +263,7 @@ class MobileSidebar {
             });
         }
         
-        // Charge les notes existantes
+        // Load existing notes
         this.loadNotes(savedNotes);
     }
 
@@ -293,7 +293,7 @@ class MobileSidebar {
             </div>
         `).join('');
         
-        // Ajoute les événements de suppression
+        // Adds deletion events
         container.querySelectorAll('.delete-note').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const index = parseInt(e.target.dataset.index);

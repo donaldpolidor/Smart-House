@@ -1,4 +1,4 @@
-// contact.js - Gestion du formulaire de contact avec animation de dépliage
+// contact.js - Contact form management with expand animation
 class ContactManager {
     constructor() {
         this.toggleBtn = document.getElementById('contactToggle');
@@ -25,14 +25,14 @@ class ContactManager {
             this.toggleDropdown();
         });
 
-        // Fermer en cliquant en dehors
+        // Close by clicking outside
         document.addEventListener('click', (e) => {
             if (this.isOpen && !this.toggleBtn.contains(e.target) && !this.dropdown.contains(e.target)) {
                 this.closeDropdown();
             }
         });
 
-        // Fermer avec la touche Escape
+        // Close with the Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.isOpen) {
                 this.closeDropdown();
@@ -53,7 +53,7 @@ class ContactManager {
         this.toggleBtn.classList.add('active');
         this.dropdown.classList.add('active');
         
-        // Animation d'ouverture
+        // Opening animation
         this.dropdown.style.display = 'block';
         setTimeout(() => {
             this.dropdown.style.overflow = 'visible';
@@ -65,7 +65,7 @@ class ContactManager {
         this.toggleBtn.classList.remove('active');
         this.dropdown.classList.remove('active');
         
-        // Réinitialiser pour l'animation
+        // Reset for animation
         setTimeout(() => {
             this.dropdown.style.overflow = 'hidden';
         }, 300);
@@ -76,7 +76,7 @@ class ContactManager {
             this.handleSubmit(e);
         });
 
-        // Validation en temps réel
+        // Real-time validation
         const inputs = this.form.querySelectorAll('input, textarea');
         inputs.forEach(input => {
             input.addEventListener('blur', () => {
@@ -238,12 +238,12 @@ class ContactManager {
     }
 }
 
-// Initialiser le gestionnaire de contact
+// Initialize the contact manager
 document.addEventListener('DOMContentLoaded', () => {
     new ContactManager();
 });
 
-// Ajouter l'animation shake pour les erreurs
+// Add shake animation for errors
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideInRight {

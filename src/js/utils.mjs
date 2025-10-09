@@ -71,7 +71,7 @@ async function loadHeader() {
     const headerElement = document.getElementById('main-header');
     if (headerElement) {
       headerElement.innerHTML = headerHtml;
-      // Mettre à jour le compteur du panier dans le header
+      // Update the basket counter in the header
       updateCartCount();
     }
   } catch (error) {

@@ -18,5 +18,5 @@ const copyDir = (src, dest) => {
   });
 };
 
-// Copier les images vers le dossier de build
+// Copy images to the build folder
 copyDir('src/images', 'dist/images');

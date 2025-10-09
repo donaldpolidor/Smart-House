@@ -32,7 +32,7 @@ class MobileSidebarManager {
     this.closeBtn.addEventListener('click', () => this.closeSidebar());
     this.backdrop.addEventListener('click', () => this.closeSidebar());
     
-    // Fermer avec la touche Escape
+    // Close with the Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.mobileSidebar.classList.contains('active')) {
         this.closeSidebar();
@@ -41,17 +41,17 @@ class MobileSidebarManager {
   }
 
   loadInitialContent() {
-    // Précharger le contenu des articles
+    // Preload article content
     this.loadArticlesContent();
   }
 
   openSidebar(tab) {
-    // Mettre à jour les boutons actifs
+    // Update active buttons
     this.tabButtons.forEach(btn => {
       btn.classList.toggle('active', btn.getAttribute('data-tab') === tab);
     });
 
-    // Charger le contenu selon l'onglet
+    // Load content according to tab
     switch(tab) {
       case 'articles':
         this.loadArticlesContent();
@@ -67,7 +67,7 @@ class MobileSidebarManager {
         break;
     }
 
-    // Ouvrir la sidebar
+    // Open the sidebar
     this.mobileSidebar.classList.add('active');
     this.backdrop.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -78,7 +78,7 @@ class MobileSidebarManager {
     this.backdrop.classList.remove('active');
     document.body.style.overflow = '';
     
-    // Réinitialiser les boutons actifs
+    // Reset active buttons
     this.tabButtons.forEach(btn => btn.classList.remove('active'));
   }
 
@@ -187,8 +187,8 @@ class MobileSidebarManager {
         
         const weatherData = {
           temp: '22°C',
-          description: 'Partiellement nuageux',
-          location: 'Paris, FR',
+          description: 'Partly cloudy',
+          location: 'Port-au-Prince, HT',
           icon: '🌤️'
         };
 
@@ -232,7 +232,7 @@ class MobileSidebarManager {
       noteInput.value = '';
       loadSavedNotes();
       
-      // Feedback visuel
+      // Visual feedback
       showSaveFeedback();
     };
 
@@ -267,7 +267,7 @@ class MobileSidebarManager {
         savedNotes.appendChild(noteElement);
       });
 
-      // Ajouter les événements de suppression
+      // Add deletion events
       savedNotes.querySelectorAll('.delete-note').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const noteId = parseInt(e.target.getAttribute('data-id'));
@@ -294,7 +294,7 @@ class MobileSidebarManager {
   }
 }
 
-// Initialiser la sidebar mobile quand le DOM est chargé
+// Initialize the mobile sidebar when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new MobileSidebarManager();
 });

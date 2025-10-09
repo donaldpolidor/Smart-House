@@ -2,5 +2,3 @@ link of table Trello
 https://trello.com/b/Lo6UbkVa/smart-home-project
 ===============
 Donald Polidor
-
-EmailJS : API key
